@@ -6,7 +6,8 @@ module users{
     $stateProvider
       .state("users", {
         url : '/users',
-        templateUrl : 'users/views/index.html'
+        templateUrl : 'users/views/index.html',
+        controller : 'usersController'
       });
   });
 }

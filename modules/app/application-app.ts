@@ -11,7 +11,7 @@ module application{
         });
       }
 
-      $rootScope.$on('$locationChangeSuccess', () => { $mdSidenav('left').close(); });
+      $rootScope.$on('$locationChangeSuccess', () => { $mdSidenav('left').close(); $mdBottomSheet.hide(); });
 
   }
   ).config(($urlRouterProvider, $stateProvider : angular.ui.IStateProvider) => {

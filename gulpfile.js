@@ -32,7 +32,7 @@ gulp.task('default', ['jadeToHtml', 'tsTojs'], function(){
 });
 
 gulp.task('watch',['jadeToHtml','tsTojs'], function(){
-  gulp.watch('content/**/*.{jade,ts}', ['jadeToHtml','tsTojs']);
+  gulp.watch('modules/**/*.{jade,ts}', ['jadeToHtml','tsTojs']);
 });
 
 
