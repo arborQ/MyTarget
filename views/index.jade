@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  md-sidenav.site-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id='left', md-is-locked-open="$mdMedia('gt-sm')")
+    md-toolbar.md-whiteframe-z1
+      h4 Manu
+    md-list 
+      md-list-item
+        md-button(ui-sref-active="md-primary" class="flex md-raised md-button md-default-theme", ui-sref='users') Uzytkownicy
+      md-list-item
+        md-button(ui-sref-active="md-primary" class="flex md-raised md-button md-default-theme", ui-sref='cookBook') Ksiąka
+  .md-whiteframe-z2(flex='', layout='column', tabindex='-1', role='main')
+    md-toolbar.md-whiteframe-z1(layout='row')
+      md-button.menu(hide-gt-sm='', ng-click='$toggleList()', aria-label='Show manu', class='fa fa-bars')
+      h4= title
+    md-content#content(flex='', ui-view)
