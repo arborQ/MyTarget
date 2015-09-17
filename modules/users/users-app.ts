@@ -6,8 +6,15 @@ module users{
     $stateProvider
       .state("users", {
         url : '/users',
-        templateUrl : 'users/views/index.html',
+        templateUrl : 'users/views/userList.html',
         controller : 'usersController'
       });
+
+      $stateProvider
+        .state("users.edit", {
+          url : '/edit',
+          templateUrl : 'users/views/userEdit.html',
+          controller : 'usersEditController'
+        });
   });
 }
