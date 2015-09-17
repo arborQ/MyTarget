@@ -6,6 +6,8 @@ var concat = require('gulp-concat');
 var min = require('gulp-uglify');
 var anotate = require('gulp-ng-annotate');
 var embedTemplates = require('gulp-angular-embed-templates');
+var less = require('gulp-less');
+var cssMin = require('gulp-uglifycss');
 
 gulp.task('jadeToHtml', function(){
   return gulp.src('modules/**/*.jade')
@@ -28,11 +30,19 @@ gulp.task('tsTojs', function(){
   pipeTsFolder('users');
 });
 
+gulp.task('lessToCss', function(){
+  return gulp.src('modules/**/*.less')
+  .pipe(less())
+  .pipe(concat('site.min.css'))
+  .pipe(cssMin())
+  .pipe(gulp.dest('public'))
+});
+
 gulp.task('default', ['jadeToHtml', 'tsTojs'], function(){
 });
 
-gulp.task('watch',['jadeToHtml','tsTojs'], function(){
-  gulp.watch('modules/**/*.{jade,ts}', ['jadeToHtml','tsTojs']);
+gulp.task('watch',['jadeToHtml','tsTojs','lessToCss'], function(){
+  gulp.watch('modules/**/*.{jade,ts,less}', ['jadeToHtml','tsTojs','lessToCss']);
 });
 
 
