@@ -1,0 +1,13 @@
+{
+    "appName": "MojCel",
+    "changeLaguage" : "Zmień język",
+    "pl" : "Polski",
+    "en" : "English",
+    "yes": "Tak",
+    "no": "Nie",
+
+    "users" : "Użytkownicy",
+    "users.edit" : "Edytuj użytkownikow",
+    "cookbook" : "Przepisy",
+    "cookbook.edit" : "Edytuj przepis"
+}
