@@ -4,5 +4,11 @@
     "pl" : "Polish",
     "en" : "Angielski",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+
+
+    "users" : "Users",
+    "users.edit" : "Edit user",
+    "cookbook" : "Cook book",
+    "cookbook.edit" : "Edit recipy"
 }

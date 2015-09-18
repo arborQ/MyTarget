@@ -2,15 +2,15 @@ extends layout
 
 block content
   md-sidenav.site-sidenav.md-sidenav-left.md-whiteframe-z2(md-component-id='left', md-is-locked-open="$mdMedia('gt-sm')")
-    md-toolbar.md-whiteframe-z1
-      h5 &nbsp;
+    md-toolbar.md-whiteframe-z1(layout="row", layout-align="start center")
+      md-button.md-fab.md-primary.ar-logo(aria-label="Home", ui-sref='home')
     md-list 
       md-list-item
-        md-button(ui-sref-active="md-primary" class="flex md-raised md-button md-default-theme", ui-sref='users') {{ 'users' | i18n }}
+        md-button(ui-sref-active="md-primary" class="flex md-raised md-button md-default-theme", ui-sref='users') {{ 'app.users' | i18n }}
       md-list-item
-        md-button(ui-sref-active="md-primary" class="flex md-raised md-button md-default-theme", ui-sref='cookBook')  {{'book' | i18n }}
+        md-button(ui-sref-active="md-primary" class="flex md-raised md-button md-default-theme", ui-sref='cookBook')  {{ 'app.cookbook' | i18n }}
   .md-whiteframe-z2(flex='', layout='column', tabindex='-1', role='main')
-    md-toolbar.md-whiteframe-z1(layout='row')
-      md-button.menu(hide-gt-sm='', ng-click='$toggleList()', aria-label='Show manu', class='fa fa-bars')
+    md-toolbar.md-whiteframe-z1(layout='row', layout-align="end center")
+      md-button.md-fab.md-primary.fa.fa-bars.menu(hide-gt-sm='', style="position:fixed; bottom : 0; right:0;" ng-click='$toggleList()', aria-label='Show manu')
       div(ar-laguage="")
     md-content#content(flex='', ui-view)
