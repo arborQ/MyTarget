@@ -32,6 +32,7 @@
     "gulp-uglify": "^1.4.1",
     "gulp-uglifycss": "^1.0.4",
     "gulp-util": "^3.0.6",
+    "require": "^2.4.20",
     "tsd": "^0.6.4"
   }
 }

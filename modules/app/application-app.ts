@@ -1,4 +1,5 @@
-module application {
+module arborApplication {
+  export var $controllerProvider = null;
   var app = angular.module('app', ['ngMaterial', 'ui.router', 'ngLocalize', 'ngLocalize.Config', 'ar-users', 'ar-cookBook'])
     .run(($rootScope, $state, $stateParams, $mdBottomSheet, $q, $mdSidenav) => {
     $rootScope.$state = $state;
@@ -14,8 +15,9 @@ module application {
     $rootScope.$on('$locationChangeSuccess', () => { $mdSidenav('left').close(); $mdBottomSheet.hide(); });
 
   }
-    ).config(($urlRouterProvider, $stateProvider: angular.ui.IStateProvider) => {
+).config(($urlRouterProvider, $stateProvider: angular.ui.IStateProvider, $controllerProvider) => {
 
+    arborApplication.$controllerProvider = $controllerProvider;
 
     $urlRouterProvider
       .otherwise('/');

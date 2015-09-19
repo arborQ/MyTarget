@@ -4,7 +4,7 @@ module application.controller {
 
   app.controller('appController', ($scope, locale) => {
     $scope.language = 'pl-PL';
-    locale.ready('app').then(function() {
+    locale.ready('app').then(() => {
       document.title = locale.getString('app.appName');
     });
   });

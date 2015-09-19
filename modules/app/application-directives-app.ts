@@ -22,7 +22,7 @@ module application.directives {
           }).then(function(newLocale) {
             locale.setLocale(newLocale);
             $scope.selectedLanguage = newLocale;
-          };
+          });
         }
       }
     };

@@ -1,0 +1,1 @@
+define([],function(){var n=angular.module("app");return n});

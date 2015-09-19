@@ -6,15 +6,15 @@ module users{
     $stateProvider
       .state("users", {
         url : '/users',
-        templateUrl : 'users/views/userList.html',
-        controller : 'usersController'
+        templateUrl : 'users/views/index.html',
+        controller : 'usersController',
+        resolve: {
+          loadusersController: ($q) => {
+            var deferred = $q.defer();
+            require(["usersController"], function() { deferred.resolve(); });
+            return deferred.promise;
+          },
+        }
       });
-
-      $stateProvider
-        .state("users.edit", {
-          url : '/edit',
-          templateUrl : 'users/views/userEdit.html',
-          controller : 'usersEditController'
-        });
   });
 }

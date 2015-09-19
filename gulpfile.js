@@ -16,18 +16,29 @@ gulp.task('jadeToHtml', function(){
 });
 
 var pipeTsFolder = function(name) {
-  return gulp.src(['typings/**/*.ts', 'modules/' + name + '/*.ts'])
+  return gulp.src(['typings/**/*.ts', 'modules/' + name + '/' + name + '-controllers.ts'])
   .pipe(ts())
-  .pipe(anotate())
   .pipe(concat(name + '/' + name + '.min.js'))
   .pipe(min())
   .pipe(gulp.dest('public'));
 };
 
 gulp.task('tsTojs', function(){
-  pipeTsFolder('app');
-  pipeTsFolder('cookBook');
+  //pipeTsFolder('app');
+  //pipeTsFolder('cookBook');
   pipeTsFolder('users');
+  gulp.src(['typings/**/*.ts', 'modules/**/*-app.ts'])
+  .pipe(ts())
+  .pipe(anotate())
+  .pipe(concat('site.js'))
+  .pipe(min())
+  .pipe(gulp.dest('public'));
+
+  return gulp.src(['typings/**/*.ts', 'modules/*.ts'])
+  .pipe(ts())
+  .pipe(anotate())
+  .pipe(min())
+  .pipe(gulp.dest('public'));
 });
 
 gulp.task('lessToCss', function(){
