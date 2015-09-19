@@ -1,6 +1,7 @@
 module arborApplication {
   export var $controllerProvider = null;
-  var app = angular.module('app', ['ngMaterial', 'ui.router', 'ngLocalize', 'ngLocalize.Config', 'ar-users', 'ar-cookBook'])
+  export var $stateStorage = {};
+  var app = angular.module('app', ['ngMaterial', 'ui.router', 'ngLocalize', 'ngLocalize.Config'])
     .run(($rootScope, $state, $stateParams, $mdBottomSheet, $q, $mdSidenav) => {
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
@@ -16,7 +17,6 @@ module arborApplication {
 
   }
 ).config(($urlRouterProvider, $stateProvider: angular.ui.IStateProvider, $controllerProvider) => {
-
     arborApplication.$controllerProvider = $controllerProvider;
 
     $urlRouterProvider
@@ -27,6 +27,11 @@ module arborApplication {
       url: '/',
       template: '<div>home</div>'
     });
+
+    angular.forEach(arborApplication.$stateStorage, (state, stateName : string) => {
+      $stateProvider.state(stateName, state);
+    })
+
   }).value('localeConf', {
       basePath: 'languages',
       defaultLocale: 'pl-PL',

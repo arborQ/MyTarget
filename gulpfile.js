@@ -23,18 +23,25 @@ var pipeTsFolder = function(name) {
   .pipe(gulp.dest('public'));
 };
 
-gulp.task('tsTojs', function(){
-  //pipeTsFolder('app');
-  //pipeTsFolder('cookBook');
-  pipeTsFolder('users');
-  gulp.src(['typings/**/*.ts', 'modules/**/*-app.ts'])
+gulp.task('createSite', function(){
+  return gulp.src(['typings/**/*.ts', 'modules/**/setup.ts', 'modules/**/*-directives.ts'])
   .pipe(ts())
   .pipe(anotate())
-  .pipe(concat('site.js'))
+  .pipe(concat('site.min.js'))
   .pipe(min())
   .pipe(gulp.dest('public'));
+});
 
-  return gulp.src(['typings/**/*.ts', 'modules/*.ts'])
+gulp.task('createControllers', function(){
+  return gulp.src(['typings/**/*.ts', 'modules/**/*-controller.ts', 'modules/**/*-filters.ts'])
+  .pipe(ts())
+  .pipe(anotate())
+  .pipe(min())
+  .pipe(gulp.dest('public'));
+});
+
+gulp.task('tsTojs', ['createSite', 'createControllers'], function(){
+  gulp.src(['typings/**/*.ts', 'modules/app.ts', 'modules/main.ts'])
   .pipe(ts())
   .pipe(anotate())
   .pipe(min())

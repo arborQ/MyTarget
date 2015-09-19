@@ -1,0 +1,1 @@
+define(["app"],function(e){arborApplication.$controllerProvider.register("usersController",["$scope",function(e){e.users=[{id:1,name:"lukasz"},{id:2,name:"ola"},{id:3,name:"julka"}]}])});
