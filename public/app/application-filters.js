@@ -1,0 +1,1 @@
+var application;!function(i){var n;!function(i){var n=angular.module("app");n.filter("hasChange",function(){return function(i,n){return JSON.stringify(i)!==JSON.stringify(n)}})}(n=i.filters||(i.filters={}))}(application||(application={}));

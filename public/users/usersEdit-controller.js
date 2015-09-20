@@ -1,1 +1,1 @@
-define(["app"],function(r){arborApplication.$controllerProvider.register("usersEditController",["$scope",function(r){r.details={id:1,name:"lukasz",login:"arbor"}}])});
+define(["app"],function(i){arborApplication.$controllerProvider.register("usersEditController",["$scope",function(i){i.details={id:1,name:"lukasz",login:"arbor"},i.originalDetails={id:1,name:"lukasz",login:"arbor"}}])});

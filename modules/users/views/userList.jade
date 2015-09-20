@@ -1,5 +1,9 @@
-md-list(ng-show="'users' | isState")
-  md-subheader.md-no-sticky {{ 'users.systemUsers' | i18n }}
-  md-list-item(ng-repeat="user in users", ng-click="userOptions(user, $event)") 
-    p {{user.name}}
+section(ng-show="'users' | isState")
+  md-subheader 
+    md-input-container
+      label(i18n="app.search")
+      input(ng-model='search')
+  md-list
+    md-list-item(ng-repeat="user in users | filter:search", ng-click="userOptions(user, $event)") 
+      p {{user.name}}
 div(ui-view="", ng-show="'users.edit' | isState")

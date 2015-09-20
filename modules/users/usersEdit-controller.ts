@@ -4,5 +4,6 @@ define(['app'], function(app) {
     .$controllerProvider
     .register('usersEditController', ['$scope', ($scope) => {
       $scope.details = { id : 1, name: 'lukasz', login : 'arbor' };
+      $scope.originalDetails = { id : 1, name: 'lukasz', login : 'arbor' };
     }]);
 });

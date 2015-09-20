@@ -5,6 +5,9 @@ define(['app'], function(app) {
     .register('usersController', ['$scope', '$mdBottomSheet', ($scope, $mdBottomSheet) => {
     $scope.users = [{ id: 1, name: 'lukasz' }, { id: 2, name: 'ola' }, { id: 3, name: 'julka' }];
 
+    for(var i= 0; i < 50; i++){
+      $scope.users.push({ id: i+ 3, name: 'test'+i });
+    }
 
     $scope.userOptions = (user, $event) => {
       $mdBottomSheet.show({

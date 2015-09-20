@@ -24,7 +24,7 @@ var pipeTsFolder = function(name) {
 };
 
 gulp.task('createSite', function(){
-  return gulp.src(['typings/**/*.ts', 'modules/**/setup.ts', 'modules/**/*-directives.ts'])
+  return gulp.src(['typings/**/*.ts', 'modules/**/setup.ts', 'modules/**/*-directives.ts', 'modules/app/*-filter.ts'])
   .pipe(ts())
   .pipe(anotate())
   .pipe(concat('site.min.js'))
