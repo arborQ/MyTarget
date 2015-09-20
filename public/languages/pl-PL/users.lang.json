@@ -1,6 +1,0 @@
-{
-  "systemUsers" : "Lista użytkownikow",
-  "name" : "Imie",
-  "login" : "Login",
-  "editHeader" : "Edytujesz {name} ({login})"
-}
