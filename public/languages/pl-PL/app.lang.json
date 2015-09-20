@@ -5,7 +5,8 @@
     "en" : "English",
     "yes": "Tak",
     "no": "Nie",
-
+    "editFormat" : "Edytuj {0}",
+    "editLabel" : "Edytuj",
     "users" : "Użytkownicy",
     "users.edit" : "Edytuj użytkownikow",
     "cookbook" : "Przepisy",

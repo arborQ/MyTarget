@@ -5,8 +5,8 @@
     "en" : "Angielski",
     "yes": "Yes",
     "no": "No",
-
-
+    "editFormat" : "Edit {0}",
+    "editLabel" : "Edit",
     "users" : "Users",
     "users.edit" : "Edit user",
     "cookbook" : "Cook book",

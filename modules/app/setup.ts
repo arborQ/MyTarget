@@ -1,6 +1,8 @@
+/// <reference path="../app/typings.d.ts"/>
+
 module arborApplication {
   export var $controllerProvider = null;
-  export var $stateStorage = {};
+  export var $stateStorage = <arbor.IStateStorage>{};
   var app = angular.module('app', ['ngMaterial', 'ui.router', 'ngLocalize', 'ngLocalize.Config'])
     .run(($rootScope, $state, $stateParams, $mdBottomSheet, $q, $mdSidenav) => {
     $rootScope.$state = $state;
@@ -16,7 +18,7 @@ module arborApplication {
     $rootScope.$on('$locationChangeSuccess', () => { $mdSidenav('left').close(); $mdBottomSheet.hide(); });
 
   }
-).config(($urlRouterProvider, $stateProvider: angular.ui.IStateProvider, $controllerProvider) => {
+    ).config(($urlRouterProvider, $stateProvider: angular.ui.IStateProvider, $controllerProvider) => {
     arborApplication.$controllerProvider = $controllerProvider;
 
     $urlRouterProvider
@@ -28,21 +30,35 @@ module arborApplication {
       template: '<div>home</div>'
     });
 
-    angular.forEach(arborApplication.$stateStorage, (state, stateName : string) => {
-      $stateProvider.state(stateName, state);
+    angular.forEach(arborApplication.$stateStorage, (state: arbor.IArborRoute, stateName: string) => {
+      var newState = <angular.ui.IState>{
+        url: state.url,
+        controller: state.controller,
+        template: state.template,
+        templateUrl: state.templateUrl,
+        resolve: {
+          loadController: ['$q', ($q) => {
+            var deferred = $q.defer();
+            require(state.require, () => { deferred.resolve(); });
+            return deferred.promise;
+          }]
+        }
+      };
+
+      $stateProvider.state(stateName, newState);
     })
 
   }).value('localeConf', {
-      basePath: 'languages',
-      defaultLocale: 'pl-PL',
-      sharedDictionary: 'app',
-      fileExtension: '.lang.json',
-      persistSelection: true,
-      cookieName: 'COOKIE_LOCALE_LANG',
-      observableAttrs: new RegExp('^data-(?!ng-|i18n)'),
-      delimiter: '::'
+    basePath: 'languages',
+    defaultLocale: 'pl-PL',
+    sharedDictionary: 'app',
+    fileExtension: '.lang.json',
+    persistSelection: true,
+    cookieName: 'COOKIE_LOCALE_LANG',
+    observableAttrs: new RegExp('^data-(?!ng-|i18n)'),
+    delimiter: '::'
   }).value('localeSupported', [
-      'en-US',
-      'pl-PL',
+    'en-US',
+    'pl-PL',
   ]);
 }

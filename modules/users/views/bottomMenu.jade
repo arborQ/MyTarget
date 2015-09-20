@@ -1,6 +1,6 @@
 md-bottom-sheet.md-grid(layout='row')
   md-list(flex='', layout='row', layout-align='center center')
-    md-list-item(ng-repeat='item in items')
-      md-button.md-grid-item-content(ng-click='listItemClick($index)')
+    md-list-item
+      md-button.md-grid-item-content(ui-sref=".edit({ id : selectedUser.id })")
         .fa(class="fa-pencil-square-o")
-        .md-grid-text  {{ item.name }} {{selectedUser.name}}  
+        .md-grid-text   {{ 'app.editLabel' | i18n }}

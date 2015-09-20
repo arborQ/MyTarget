@@ -1,1 +1,1 @@
-<md-list><md-list-item ng-repeat="user in users" ng-click="userOptions(user, $event)"> <p>{{user.name}}</p></md-list-item></md-list><div ui-view=""></div>
+<md-list ng-show="'users' | isState"><md-subheader class="md-no-sticky">{{ 'users.systemUsers' | i18n }}</md-subheader><md-list-item ng-repeat="user in users" ng-click="userOptions(user, $event)"> <p>{{user.name}}</p></md-list-item></md-list><div ui-view="" ng-show="'users.edit' | isState"></div>
