@@ -3,7 +3,6 @@ section(ng-show="'users' | isState")
     md-input-container
       label(i18n="app.search")
       input(ng-model='search')
-  md-list
-    md-list-item(ng-repeat="user in users | filter:search", ng-click="userOptions(user, $event)") 
-      p {{user.name}}
+  section(layout="column")
+    md-button.text-left(ng-repeat="user in users | filter:search", ui-sref=".edit({ id : user.id })", layout-align="start center") {{user.name}}
 div(ui-view="", ng-show="'users.edit' | isState")
