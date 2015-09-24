@@ -3,12 +3,9 @@
 define(['app'], function(app) {
   arborApplication
     .$controllerProvider
-    .register('usersController', ['$scope', '$mdBottomSheet', ($scope, $mdBottomSheet) => {
-      $scope.users = [{ id: 1, name: 'lukasz' }, { id: 2, name: 'ola' }, { id: 3, name: 'julka' }];
+    .register('usersController', ['$scope', '$mdBottomSheet', 'usersApi', ($scope, $mdBottomSheet, usersApi) => {
+      $scope.users = usersApi.query();
 
-      for (var i = 0; i < 50; i++) {
-        $scope.users.push({ id: i + 3, name: 'test' + i });
-      }
       $scope.selectedUser = null;
       $scope.userOptions = (user, $event : angular.IAngularEvent) => {
         $event.stopPropagation();

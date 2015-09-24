@@ -1,4 +1,4 @@
-/// <reference path="../../typings/angularjs/angular.d.ts"/>
+/// <reference path="../../../typings/angularjs/angular.d.ts"/>
 module application.filters {
   var app = angular.module('app');
 

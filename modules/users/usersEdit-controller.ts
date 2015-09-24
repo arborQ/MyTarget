@@ -1,9 +1,12 @@
 /// <reference path="../app/setup.ts"/>
+/// <reference path="../../typings/requirejs/require.d.ts"/>
+/// <reference path="../../typings/angularjs/angular.d.ts"/>
+
 define(['app'], function(app) {
   arborApplication
     .$controllerProvider
-    .register('usersEditController', ['$scope', ($scope) => {
-      $scope.details = { id : 1, name: 'lukasz', login : 'arbor' };
-      $scope.originalDetails = { id : 1, name: 'lukasz', login : 'arbor' };
+    .register('usersEditController', ['$scope', '$stateParams', 'usersApi', ($scope, $stateParams, usersApi) => {
+      $scope.details = usersApi.get({id : $stateParams.id });
+      $scope.originalDetails = angular.copy($scope.details);
     }]);
 });

@@ -1,1 +1,4 @@
-define([],function(){var n=angular.module("app");return n});
+define([], function () {
+    var app = angular.module('app');
+    return app;
+});

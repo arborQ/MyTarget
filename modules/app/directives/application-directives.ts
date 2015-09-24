@@ -1,4 +1,5 @@
-/// <reference path="../../typings/angular-material/angular-material.d.ts"/>
+/// <reference path="../../../typings/angular-material/angular-material.d.ts"/>
+/// <reference path="../../../typings/angularjs/angular.d.ts"/>
 module application.directives {
   var app = angular.module('app');
 

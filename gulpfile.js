@@ -12,6 +12,7 @@ var cache = require('gulp-changed');
 var condition = require('gulp-if');
 var fileSize = require('gulp-filesize');
 var settings = require('./package.json');
+var ingore = require('gulp-ignore');
 
 gulp.task('jadeToHtml', function() {
   return gulp.src('modules/**/*.jade')
@@ -25,7 +26,8 @@ gulp.task('watchJade', ['jadeToHtml'], function() {
 });
 
 gulp.task('createSite', function() {
-  return gulp.src(['typings/**/*.ts', 'modules/**/setup.ts', 'modules/**/*-directives.ts', 'modules/app/*-filter.ts'])
+  return gulp.src(['typings/**/*.ts', 'modules/**/setup.ts', 'modules/**/*-directives.ts', 'modules/app/filtes/*-filter.ts'])
+    .pipe(ingore('*node.d.ts'))
     .pipe(cache('createSite'))
     .pipe(ts())
     .pipe(anotate())
@@ -34,8 +36,20 @@ gulp.task('createSite', function() {
     .pipe(gulp.dest('public'));
 });
 
+gulp.task('createServer', function(){
+  return gulp.src(['typings/**/*.ts', 'modules/**/*-api.ts'])
+  .pipe(ingore('*node.d.ts'))
+  .pipe(ts())
+  .pipe(gulp.dest('routes'));
+});
+
+gulp.task('watchServer', ['createServer'], function(){
+  return gulp.watch('modules/**/*-controller.ts', ['createServer'])
+});
+
 gulp.task('createControllers', function() {
   return gulp.src(['typings/**/*.ts', 'modules/**/*-controller.ts', 'modules/**/*-filters.ts', 'modules/**/*-viewModel.ts'])
+  .pipe(ingore('*node.d.ts'))
     .pipe(cache('createControllers'))
     .pipe(ts())
     .pipe(anotate())
@@ -44,7 +58,8 @@ gulp.task('createControllers', function() {
 });
 
 gulp.task('tsTojs', ['createSite', 'createControllers'], function() {
-  gulp.src(['typings/**/*.ts', 'modules/app.ts', 'modules/main.ts'])
+  return gulp.src(['typings/**/*.ts', 'modules/app.ts', 'modules/main.ts'])
+  .pipe(ingore('*node.d.ts'))
     .pipe(cache('tsTojs'))
     .pipe(ts())
     .pipe(anotate())
@@ -71,5 +86,5 @@ gulp.task('watchLess', ['lessToCss'], function() {
 
 gulp.task('default', ['jadeToHtml', 'tsTojs'], function() {});
 
-gulp.task('watch', ['watchTs', 'watchJade', 'watchLess'], function() {
+gulp.task('watch', ['watchTs', 'watchJade', 'watchLess', 'watchServer'], function() {
 });

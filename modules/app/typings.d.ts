@@ -4,7 +4,8 @@ declare module arbor {
     templateUrl?: string;
     template?: string;
     controller?: string;
-    require?: Array<string>
+    require?: Array<string>;
+    locals? : any;
   }
   interface IStateStorage {
     [key: string]: IArborRoute;

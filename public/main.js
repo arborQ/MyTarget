@@ -1,1 +1,5 @@
-require.config({baseUrl:"",paths:{},deps:["app"]});
+require.config({
+    baseUrl: "",
+    paths: {},
+    deps: ['app']
+});

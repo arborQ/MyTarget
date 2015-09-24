@@ -2,7 +2,7 @@
   "name": "MyTarget",
   "version": "0.0.4",
   "private": true,
-  "isDev": false,
+  "isDev": true,
   "scripts": {
     "start": "node ./bin/www"
   },
@@ -27,6 +27,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-filesize": "0.0.6",
     "gulp-if": "^1.2.5",
+    "gulp-ignore": "^1.2.1",
     "gulp-jade": "^1.1.0",
     "gulp-jshint": "^1.11.2",
     "gulp-less": "^3.0.3",

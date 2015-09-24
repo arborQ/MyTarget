@@ -1,1 +1,10 @@
-var users;!function(s){var r=function(){function s(s){this.a=s}return s}();s.UserListViewModel=r}(users||(users={}));
+var users;
+(function (users) {
+    var UserListViewModel = (function () {
+        function UserListViewModel(a) {
+            this.a = a;
+        }
+        return UserListViewModel;
+    })();
+    users.UserListViewModel = UserListViewModel;
+})(users || (users = {}));
