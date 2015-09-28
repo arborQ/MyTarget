@@ -1,4 +1,5 @@
 /// <reference path="../app/typings.d.ts"/>
+/// <reference path="../../typings/angularjs/angular.d.ts"/>
 
 module arborApplication {
   export var $controllerProvider = null;
@@ -30,7 +31,7 @@ module arborApplication {
       template: '<div>home</div>'
     });
 
-    angular.forEach(arborApplication.$stateStorage, (state: arbor.IArborRoute, stateName: string) => {
+    /*angular.forEach(arborApplication.$stateStorage, (state: arbor.IArborRoute, stateName: string) => {
       if(!state.locals){
         state.locals = {};
       }
@@ -50,7 +51,7 @@ module arborApplication {
       };
 
       $stateProvider.state(stateName, newState);
-    })
+    })*/
 
   }).value('localeConf', {
     basePath: 'languages',

@@ -1,9 +1,19 @@
 var express = require('express');
+var settings = require('../package.json') ;
+
 var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'MyTarget' });
+  res.render('index', {
+    isDevelopment : settings.isDev,
+    app : settings.version,
+    angular : settings.devDependencies.angular,
+    material : settings.devDependencies['angular-material'],
+    angularui : settings.devDependencies['angular-ui-router'],
+    requirejs : settings.devDependencies.requirejs,
+    awesome : settings.devDependencies['font-awesome']
+  });
 });
 
 router.get('/languages/en-US/app.lang.json', function(req, res, next) {
