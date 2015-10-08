@@ -1,1 +1,0 @@
-define(["app"],function(e){arborApplication.$controllerProvider.register("usersController",["$scope","$mdBottomSheet",function(e,o){e.users=[{id:1,name:"lukasz"},{id:2,name:"ola"},{id:3,name:"julka"}];for(var r=0;50>r;r++)e.users.push({id:r+3,name:"test"+r});e.selectedUser=null,e.userOptions=function(o,r){r.stopPropagation(),e.selectedUser=o}}])});

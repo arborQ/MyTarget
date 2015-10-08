@@ -1,8 +1,0 @@
-section(ng-show="'users' | isState")
-  md-subheader 
-    md-input-container
-      label(i18n="app.search")
-      input(ng-model='search')
-  section(layout="column")
-    md-button.text-left(ng-repeat="user in users | filter:search", ui-sref=".edit({ id : user.id })", layout-align="start center") {{user.name}}
-div(ui-view="", ng-show="'users.edit' | isState")

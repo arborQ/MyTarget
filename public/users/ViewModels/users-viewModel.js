@@ -1,1 +1,0 @@
-var users;!function(s){var r=function(){function s(s){this.a=s}return s}();s.UserListViewModel=r}(users||(users={}));
