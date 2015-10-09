@@ -1,7 +1,37 @@
 doctype html
-html
+html(lang='en')
   head
-    title hallo :)
-  body
-    .body welcome
-      
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    title Node front-edn
+    link(rel='stylesheet', href='bower_components/bootstrap/dist/css/bootstrap.css')
+    link(href='slidebar-site.css', rel='stylesheet')
+  body(ng-app="app", ng-controller="applicationCrl")
+    #wrapper
+      #sidebar-wrapper
+        ul.sidebar-nav
+          li.sidebar-brand
+            a(href='#') Start Bootstrap
+          li
+            a(href='#') Dashboard
+          li
+            a(href='#') Shortcuts
+          li
+            a(href='#') Overview
+          li
+            a(href='#') Events
+          li
+            a(href='#') About
+          li
+            a(href='#') Services
+          li
+            a(href='#') Contact
+      #page-content-wrapper(ui-view="")
+        .container-fluid in container fluid
+    script(src="bower_components/angular/angular.js")
+    script(src="bower_components/angular-ui-router/release/angular-ui-router.js")
+    script(src="bower_components/jquery/dist/jquery.js")
+    script(src="bower_components/bootstrap/dist/js/bootstrap.js")
