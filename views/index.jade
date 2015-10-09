@@ -9,7 +9,7 @@ html(lang='en')
     title Node front-edn
     link(rel='stylesheet', href='bower_components/bootstrap/dist/css/bootstrap.css')
     link(href='slidebar-site.css', rel='stylesheet')
-  body(ng-app="app", ng-controller="applicationCrl")
+  body(ng-app="app")
     #wrapper
       #sidebar-wrapper
         ul.sidebar-nav
@@ -30,8 +30,18 @@ html(lang='en')
           li
             a(href='#') Contact
       #page-content-wrapper(ui-view="")
-        .container-fluid in container fluid
+        .container-fluid
+          .card(style="max-width: 1200px;")
+             img.card-img-top(data-src="holder.js/100px200?theme=social&text=card", alt='Card image cap', style="border: none; border-radius: .25rem .25rem 0 0; height: 200px; width: 100%; display: block")
+             .card-block
+               h4.card-title Card title
+               p.card-text
+                 | Some quick example text to build on the card title and make up the bulk of the card's content.
+               a.btn.btn-primary(href='#') Button
     script(src="bower_components/angular/angular.js")
     script(src="bower_components/angular-ui-router/release/angular-ui-router.js")
     script(src="bower_components/jquery/dist/jquery.js")
     script(src="bower_components/bootstrap/dist/js/bootstrap.js")
+    script(src="bower_components/holderjs/holder.js")
+    script
+      | var app = angular.module('app', []);
