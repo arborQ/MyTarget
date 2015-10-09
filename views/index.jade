@@ -9,39 +9,21 @@ html(lang='en')
     title Node front-edn
     link(rel='stylesheet', href='bower_components/bootstrap/dist/css/bootstrap.css')
     link(href='slidebar-site.css', rel='stylesheet')
-  body(ng-app="app")
+    link(href='site.css', rel='stylesheet')
+  body(ng-app="app", ng-controller="applicationCtr")
     #wrapper
       #sidebar-wrapper
         ul.sidebar-nav
           li.sidebar-brand
-            a(href='#') Start Bootstrap
+            a(ui-sref='home') Start Bootstrap
           li
-            a(href='#') Dashboard
-          li
-            a(href='#') Shortcuts
-          li
-            a(href='#') Overview
-          li
-            a(href='#') Events
-          li
-            a(href='#') About
-          li
-            a(href='#') Services
-          li
-            a(href='#') Contact
+            a(ui-sref='login', ui-sref-active="active") Login
       #page-content-wrapper(ui-view="")
-        .container-fluid
-          .card(style="max-width: 1200px;")
-             img.card-img-top(data-src="holder.js/100px200?theme=social&text=card", alt='Card image cap', style="border: none; border-radius: .25rem .25rem 0 0; height: 200px; width: 100%; display: block")
-             .card-block
-               h4.card-title Card title
-               p.card-text
-                 | Some quick example text to build on the card title and make up the bulk of the card's content.
-               a.btn.btn-primary(href='#') Button
     script(src="bower_components/angular/angular.js")
+    script(src="bower_components/angular-resource/angular-resource.js")
     script(src="bower_components/angular-ui-router/release/angular-ui-router.js")
     script(src="bower_components/jquery/dist/jquery.js")
     script(src="bower_components/bootstrap/dist/js/bootstrap.js")
     script(src="bower_components/holderjs/holder.js")
-    script
-      | var app = angular.module('app', []);
+    script(src="auth/auth.js")
+    script(src="application/application.js")

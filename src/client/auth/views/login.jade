@@ -1,0 +1,11 @@
+.card
+  .card-header Login
+  .card-block
+    fieldset(ng-form="loginForm")
+      .form-group
+        label(for='login') Login
+        input#login.form-control(type='text', placeholder='Login', ng-model='model.login', ng-required="true")
+      .form-group
+        label(for='password') Password
+        input#password.form-control(type='password', placeholder='Password', ng-model='model.password', ng-required="true")
+      button.btn.btn-default(type='button', ng-disabled="loginForm.$invalid", ng-click="ctr.save(model, loginForm)") Log In

@@ -1,0 +1,3 @@
+#page-content-wrapper[ui-view] > .card {
+  max-width: 800px;
+}

@@ -22,6 +22,7 @@
     "angular-ui-router": "~0.2.15",
     "bootstrap": "4.0.0-alpha",
     "jquery": "~2.1.4",
-    "holderjs": "~2.8.2"
+    "holderjs": "~2.8.2",
+    "angular-resource": "~1.4.7"
   }
 }
