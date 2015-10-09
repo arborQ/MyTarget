@@ -1,0 +1,35 @@
+{
+  "name": "mytarget",
+  "version": "0.0.2",
+  "description": "my target test",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://arborQ@github.com/arborQ/MyTarget.git"
+  },
+  "keywords": [
+    "node",
+    "angular"
+  ],
+  "author": "Arbor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arborQ/MyTarget/issues"
+  },
+  "homepage": "https://github.com/arborQ/MyTarget#readme",
+  "devDependencies": {
+    "body-parser": "^1.14.1",
+    "cookie-parser": "^1.4.0",
+    "express": "^4.13.3",
+    "gulp": "^3.9.0",
+    "gulp-typescript": "^2.9.2",
+    "http": "0.0.0",
+    "jade": "^1.11.0",
+    "morgan": "^1.6.1",
+    "path": "^0.12.7",
+    "serve-favicon": "^2.3.0"
+  }
+}
