@@ -23,6 +23,7 @@
     "bootstrap": "4.0.0-alpha",
     "jquery": "~2.1.4",
     "holderjs": "~2.8.2",
-    "angular-resource": "~1.4.7"
+    "angular-resource": "~1.4.7",
+    "AngularJS-Toaster": "angularjs-toaster#~0.4.15"
   }
 }

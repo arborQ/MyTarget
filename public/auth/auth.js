@@ -1,4 +1,5 @@
 var auth = angular.module('ar-auth', ['ui.router', 'ngResource'])
+    .run(["menuService", function (menuService) { return menuService.add({ name: 'Login', state: 'login' }); }])
     .config(["$stateProvider", function ($stateProvider) {
     $stateProvider.state({
         name: 'login',
@@ -10,15 +11,14 @@ var auth = angular.module('ar-auth', ['ui.router', 'ngResource'])
 }]);
 
 var logInCtr = (function () {
-    function logInCtr($log, $resource) {
+    function logInCtr($resource) {
         this.save = function (model, form) {
             if (form.$valid) {
-                $log.info(model);
                 $resource('/auth').save(model);
             }
         };
     }
-    logInCtr.$inject = ["$log", "$resource"];
+    logInCtr.$inject = ["$resource"];
     return logInCtr;
 })();
 auth.controller('logInCtr', logInCtr);

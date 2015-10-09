@@ -8,16 +8,18 @@ html(lang='en')
     meta(name='author', content='')
     title Node front-edn
     link(rel='stylesheet', href='bower_components/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='bower_components/AngularJS-Toaster/toaster.css')
     link(href='slidebar-site.css', rel='stylesheet')
     link(href='site.css', rel='stylesheet')
   body(ng-app="app", ng-controller="applicationCtr")
+    toaster-container
     #wrapper
       #sidebar-wrapper
         ul.sidebar-nav
           li.sidebar-brand
             a(ui-sref='home') Start Bootstrap
-          li
-            a(ui-sref='login', ui-sref-active="active") Login
+          li(ng-repeat="item in $menuItems")
+            a(ui-sref='{{item.state}}', ui-sref-active="active") {{item.name}}
       #page-content-wrapper(ui-view="")
     script(src="bower_components/angular/angular.js")
     script(src="bower_components/angular-resource/angular-resource.js")
@@ -25,5 +27,7 @@ html(lang='en')
     script(src="bower_components/jquery/dist/jquery.js")
     script(src="bower_components/bootstrap/dist/js/bootstrap.js")
     script(src="bower_components/holderjs/holder.js")
+    script(src="bower_components/AngularJS-Toaster/toaster.js")
     script(src="auth/auth.js")
+    script(src="users/users.js")
     script(src="application/application.js")

@@ -42,7 +42,8 @@ gulp.task('jade', function(){
 
 gulp.task('clientTs',group({
   'application' : [ './typings/**/*.d.ts', './src/client/application/**/*.ts' ],
-  'auth' : [ './typings/**/*.d.ts', './src/client/auth/**/*.ts' ]
+  'auth' : [ './typings/**/*.d.ts', './src/client/auth/**/*.ts' ],
+  'users' : [ './typings/**/*.d.ts', './src/client/users/**/*.ts' ]
 }, function(name, files){
   console.log(files);
     return gulp.src(files)

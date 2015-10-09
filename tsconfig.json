@@ -11,13 +11,18 @@
     },
     "filesGlob": [
         "./typings/**/*.d.ts",
+        "./src/client/**/*.d.ts",
         "./src/client/**/*.ts"
     ],
     "files": [
         "src/client/application/controllers/applicationCtr.ts",
+        "src/client/application/factories/errorInterceptorFactory.ts",
         "src/client/application/module-application.ts",
+        "src/client/application/services/menuService.ts",
+        "src/client/application/typings/rootscope.d.ts",
         "src/client/auth/controllers/logInCtr.ts",
         "src/client/auth/module-auth.ts",
+        "src/client/users/module-users.ts",
         "typings/angular-material/angular-material.d.ts",
         "typings/angular-ui-router/angular-ui-router.d.ts",
         "typings/angularjs/angular-resource.d.ts",
