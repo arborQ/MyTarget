@@ -17,7 +17,6 @@ var usersModule = angular.module('ar-users', ['ui.router', 'ngResource', 'ar-aut
           def.reject(false);
           $state.go('login');
         }
-
         return def.promise;
       }
     }

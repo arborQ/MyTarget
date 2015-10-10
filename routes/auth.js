@@ -4,7 +4,7 @@ var jwt = require('jsonwebtoken');
 var config = require('../config');
 
 var token = jwt.sign({ id : 1, name : 'arbor', roles : [ 'users' ] }, config.seacret, {
-      expiresIn: 1440 // expires in 24 hours
+      expiresIn: '1d'
     });
 
 router.route('/auth')

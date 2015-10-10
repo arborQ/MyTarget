@@ -11,4 +11,8 @@ declare module application{
     add : (position : IMenuPosition) => void;
     load : () => Array<IMenuPosition>;
   }
+
+  class CreateViewModel<T> {
+
+  }
 }
