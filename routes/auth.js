@@ -3,15 +3,20 @@ var router = express.Router();
 var jwt = require('jsonwebtoken');
 var config = require('../config');
 
+var token = jwt.sign({ id : 1, name : 'arbor', roles : [ 'users' ] }, config.seacret, {
+      expiresIn: 1440 // expires in 24 hours
+    });
+
 router.route('/auth')
 .post(function(req, res, next) {
   if(req.body.login === 'arbor' && req.body.password === '123'){
-    var token = jwt.sign({ id : 1, name : 'arbor', isAdmin : true }, config.seacret, {
-          expiresInMinutes: 1440 // expires in 24 hours
-        });
-        return res.json({ token : token });
+    res.json({ token : token });
+  }else{
+    res.json({ success : false });
   }
-  return res.json({ success : false });
+})
+.get(function(req, res, next){
+  res.send(token);
 });
 
 module.exports = router;

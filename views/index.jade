@@ -20,7 +20,7 @@ html(lang='en')
             a(ui-sref='home') Start Bootstrap
           li(ng-repeat="item in $menuItems")
             a(ui-sref='{{item.state}}', ui-sref-active="active") {{item.name}}
-      div.loading(ng-show="$loading") loading ...
+      .alert.alert-success(ng-show="$loading") loading ...
       #page-content-wrapper(ui-view="")
     script(src="bower_components/angular/angular.js")
     script(src="bower_components/angular-resource/angular-resource.js")
@@ -29,6 +29,7 @@ html(lang='en')
     script(src="bower_components/bootstrap/dist/js/bootstrap.js")
     script(src="bower_components/holderjs/holder.js")
     script(src="bower_components/AngularJS-Toaster/toaster.js")
+    script(src="bower_components/angular-jwt/dist/angular-jwt.js")
     script(src="auth/auth.js")
     script(src="users/users.js")
     script(src="application/application.js")

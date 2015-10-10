@@ -10,30 +10,23 @@ var app = angular.module('app', ['ui.router', 'toaster', 'ar-auth', 'ar-users'])
     $urlRouterProvider.otherwise('/');
 }]);
 
+app.controller('applicationCtr', ["$scope", function ($scope) { }]);
+
 app.factory('errorInterceptorFactory', ["$q", "toaster", function ($q, toaster) {
     return {
-        // optional method
-        //  'requestError': function(rejection) {
-        //     // do something on error
-        //     if (canRecover(rejection)) {
-        //       return responseOrNewPromise
-        //     }
-        //     return $q.reject(rejection);
-        //   },
-        // optional method
         'responseError': function (rejection) {
-            toaster.pop({
-                type: 'error',
-                title: 'Ajax',
-                body: 'ajax error occured',
-                showCloseButton: true
-            });
+            if (rejection.status !== 401) {
+                toaster.pop({
+                    type: 'error',
+                    title: 'Ajax',
+                    body: 'ajax error occured',
+                    showCloseButton: true
+                });
+            }
             return $q.reject(rejection);
         }
     };
 }]);
-
-app.controller('applicationCtr', ["$scope", function ($scope) { }]);
 
 app.service('menuService', ["$rootScope", function ($rootScope) {
     $rootScope.$menuItems = [];
