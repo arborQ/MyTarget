@@ -5,7 +5,7 @@ class logInCtr {
     this.save = (model: any, form: angular.IFormController) => {
       if (form.$valid) {
         $rootScope.$loading = true;
-        $resource('/auth').save(model)
+        $resource('/api/auth').save(model)
         .$promise.finally(() => {
           $rootScope.$loading = false;
         });

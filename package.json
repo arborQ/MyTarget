@@ -29,6 +29,7 @@
     "gulp-typescript": "^2.9.2",
     "http": "0.0.0",
     "jade": "^1.11.0",
+    "jsonwebtoken": "^5.4.0",
     "morgan": "^1.6.1",
     "path": "^0.12.7",
     "serve-favicon": "^2.3.0"

@@ -10,8 +10,6 @@ var app = angular.module('app', ['ui.router', 'toaster', 'ar-auth', 'ar-users'])
     $urlRouterProvider.otherwise('/');
 }]);
 
-app.controller('applicationCtr', ["$scope", function ($scope) { }]);
-
 app.factory('errorInterceptorFactory', ["$q", "toaster", function ($q, toaster) {
     return {
         // optional method
@@ -34,6 +32,8 @@ app.factory('errorInterceptorFactory', ["$q", "toaster", function ($q, toaster) 
         }
     };
 }]);
+
+app.controller('applicationCtr', ["$scope", function ($scope) { }]);
 
 app.service('menuService', ["$rootScope", function ($rootScope) {
     $rootScope.$menuItems = [];

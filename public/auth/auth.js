@@ -15,7 +15,7 @@ var logInCtr = (function () {
         this.save = function (model, form) {
             if (form.$valid) {
                 $rootScope.$loading = true;
-                $resource('/auth').save(model)
+                $resource('/api/auth').save(model)
                     .$promise.finally(function () {
                     $rootScope.$loading = false;
                 });
