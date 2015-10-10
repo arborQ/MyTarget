@@ -1,7 +1,7 @@
 .card
   .card-header Login
   .card-block
-    fieldset(ng-form="loginForm")
+    fieldset(ng-form="loginForm", ng-disabled="$loading")
       .form-group
         label(for='login') Login
         input#login.form-control(type='text', placeholder='Login', ng-model='model.login', ng-required="true")

@@ -11,14 +11,18 @@ var auth = angular.module('ar-auth', ['ui.router', 'ngResource'])
 }]);
 
 var logInCtr = (function () {
-    function logInCtr($resource) {
+    function logInCtr($resource, $rootScope) {
         this.save = function (model, form) {
             if (form.$valid) {
-                $resource('/auth').save(model);
+                $rootScope.$loading = true;
+                $resource('/auth').save(model)
+                    .$promise.finally(function () {
+                    $rootScope.$loading = false;
+                });
             }
         };
     }
-    logInCtr.$inject = ["$resource"];
+    logInCtr.$inject = ["$resource", "$rootScope"];
     return logInCtr;
 })();
 auth.controller('logInCtr', logInCtr);
