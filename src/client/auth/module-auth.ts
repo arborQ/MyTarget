@@ -1,6 +1,8 @@
 var auth = angular.module('ar-auth', ['ui.router', 'ngResource', 'angular-jwt', 'LocalStorageModule'])
-  .run((menuService: application.IMenuService) => menuService.add({ name: 'Login', state: 'login' }))
-  .config(($stateProvider: angular.ui.IStateProvider, $httpProvider: angular.IHttpProvider, localStorageServiceProvider: any) => {
+  .config((
+    $stateProvider: angular.ui.IStateProvider,
+    $httpProvider: angular.IHttpProvider,
+    localStorageServiceProvider: any) => {
   localStorageServiceProvider
     .setPrefix('ar')
     .setStorageType('localStorage')
@@ -10,6 +12,8 @@ var auth = angular.module('ar-auth', ['ui.router', 'ngResource', 'angular-jwt', 
   $stateProvider.state({
     name: 'login',
     url: '/login',
+    data : { access : { onlyAnonymous : true } },
+    resolve : { restricted : (authService : application.auth.IAuthService) => { return authService.IsAnnonymous();} },
     templateUrl: 'auth/views/login.html',
     controller: 'logInCtr',
     controllerAs: 'ctr'

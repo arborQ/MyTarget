@@ -6,21 +6,23 @@ html(lang='en')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     meta(name='description', content='')
     meta(name='author', content='')
-    title Node front-edn
+    title Node front-end
     link(rel='stylesheet', href='bower_components/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet', href='bower_components/AngularJS-Toaster/toaster.css')
     link(href='slidebar-site.css', rel='stylesheet')
     link(href='site.css', rel='stylesheet')
-  body(ng-app="app", ng-controller="applicationCtr")
+  body(ng-app="app", ng-controller="applicationCtr as appCtr")
     toaster-container
     #wrapper
       #sidebar-wrapper
         ul.sidebar-nav
           li.sidebar-brand
-            a(ui-sref='home') Start Bootstrap
-          li(ng-repeat="item in $menuItems")
-            a(ui-sref='{{item.state}}', ui-sref-active="active") {{item.name}}
-      .alert.alert-success(ng-show="$loading") loading ...
+            a(ui-sref='home') Node front-end
+          li(ng-repeat="item in appCtr.userData | availableStates:appCtr.listOfMenuPositons:appCtr.listOfAllStates")
+            a(ui-sref='{{item}}', ui-sref-active="active") {{item}}
+          li(ng-if="appCtr.userData")
+            a(href="#", ng-click="appCtr.logOut($event)") Log out
+      .alert.alert-success.animate(ng-show="$loading") loading ...
       #page-content-wrapper(ui-view="")
     script(src="bower_components/angular/angular.js")
     script(src="bower_components/angular-resource/angular-resource.js")

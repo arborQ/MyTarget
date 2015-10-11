@@ -8,5 +8,7 @@ declare module application.auth{
       SetToken(token : string) : IUserData;
       GetUserData() : IUserData;
       HasAccess(role : string) : ng.IPromise<boolean>;
+      IsAnnonymous() : ng.IPromise<boolean>;
+      LogOut(): void;
   }
 }

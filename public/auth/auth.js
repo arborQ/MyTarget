@@ -1,5 +1,4 @@
 var auth = angular.module('ar-auth', ['ui.router', 'ngResource', 'angular-jwt', 'LocalStorageModule'])
-    .run(["menuService", function (menuService) { return menuService.add({ name: 'Login', state: 'login' }); }])
     .config(["$stateProvider", "$httpProvider", "localStorageServiceProvider", function ($stateProvider, $httpProvider, localStorageServiceProvider) {
     localStorageServiceProvider
         .setPrefix('ar')
@@ -9,6 +8,8 @@ var auth = angular.module('ar-auth', ['ui.router', 'ngResource', 'angular-jwt', 
     $stateProvider.state({
         name: 'login',
         url: '/login',
+        data: { access: { onlyAnonymous: true } },
+        resolve: { restricted: ["authService", function (authService) { return authService.IsAnnonymous(); }] },
         templateUrl: 'auth/views/login.html',
         controller: 'logInCtr',
         controllerAs: 'ctr'
@@ -49,27 +50,27 @@ auth.factory('authJwtInterceptor', ["$q", "$rootScope", function ($q, $rootScope
 
 var console = console;
 var authService = (function () {
-    function authService(jwtHelper, $q, $http, $resource, localStorageService) {
+    function authService(jwtHelper, $q, $http, $resource, localStorageService, $rootScope) {
         var _this = this;
         this.jwtHelper = jwtHelper;
         this.$q = $q;
         this.$http = $http;
         this.localStorageService = localStorageService;
+        this.$rootScope = $rootScope;
         this.storageKey = "token_id";
+        console.log('create?');
         this.validationPromise = $q.defer();
         var savedToken = localStorageService.get(this.storageKey);
         if (savedToken) {
             $resource('/api/auth').get({ token: savedToken }).$promise.then(function (token) {
-                localStorageService.set(_this.storageKey, token.token);
-                _this.token = token.token;
-                _this.validationPromise.resolve(token.token);
+                _this.SetToken(token.token);
             });
         }
         else {
             this.validationPromise.reject(null);
         }
     }
-    authService.$inject = ["jwtHelper", "$q", "$http", "$resource", "localStorageService"];
+    authService.$inject = ["jwtHelper", "$q", "$http", "$resource", "localStorageService", "$rootScope"];
     authService.prototype.tokenIsActive = function () {
         return this.token && !this.jwtHelper.isTokenExpired(this.token);
     };
@@ -77,23 +78,50 @@ var authService = (function () {
         this.token = token;
         this.localStorageService.set(this.storageKey, token);
         this.$http.defaults.headers.common.Authorization = token;
+        this.validationPromise = this.$q.defer();
+        this.validationPromise.resolve(token);
+        this.$rootScope.$broadcast("newUserData", this.GetUserData());
         return this.GetUserData();
     };
     authService.prototype.GetUserData = function () {
         return this.jwtHelper.decodeToken(this.token);
     };
+    authService.prototype.IsAnnonymous = function () {
+        var accessPromise = this.$q.defer();
+        this.validationPromise.promise.then(function (token) {
+            accessPromise.reject(false);
+        }).catch(function () {
+            accessPromise.resolve(true);
+        });
+        return accessPromise.promise;
+    };
+    ;
     authService.prototype.HasAccess = function (role) {
         var _this = this;
         var accessPromise = this.$q.defer();
         this.validationPromise.promise.then(function (token) {
             if (_this.tokenIsActive() && _this.GetUserData().roles.indexOf(role) !== -1) {
+                console.log('has role ' + role);
                 accessPromise.resolve(true);
             }
             else {
+                console.log('has no role ' + role);
                 accessPromise.reject(false);
             }
+        }).catch(function () {
+            console.log('error : has no role ' + role);
+            accessPromise.reject(false);
         });
         return accessPromise.promise;
+    };
+    ;
+    authService.prototype.LogOut = function () {
+        this.token = null;
+        this.localStorageService.set(this.storageKey, null);
+        this.$http.defaults.headers.common.Authorization = null;
+        this.validationPromise = this.$q.defer();
+        this.validationPromise.reject(null);
+        this.$rootScope.$broadcast("newUserData", null);
     };
     return authService;
 })();

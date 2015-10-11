@@ -10,16 +10,18 @@ var token = jwt.sign({ id : 1, name : 'arbor', roles : [ 'users' ] }, config.sea
 router.route('/auth')
 .post(function(req, res, next) {
   if(req.body.login === 'arbor' && req.body.password === '123'){
-    res.json({ token : token });
+    setTimeout(function(){
+      res.json({ token : token });
+    }, 1);
   }else{
-    res.json({ success : false });
+    setTimeout(function(){
+      res.json({ success : false });
+    }, 2000);
   }
 })
 .get(function(req, res, next){
-  console.log("jwt.verify(req.query.token, config.seacret)");
-  console.log(jwt.verify(req.query.token, config.seacret));
   if(jwt.verify(req.query.token, config.seacret)){
-    return  res.json({ token : req.query.token });
+    return res.json({ token : req.query.token });
   }else{
     return  res.json(null);
   }
