@@ -49,34 +49,51 @@ auth.factory('authJwtInterceptor', ["$q", "$rootScope", function ($q, $rootScope
 
 var console = console;
 var authService = (function () {
-    function authService(jwtHelper, localStorageService) {
+    function authService(jwtHelper, $q, $http, $resource, localStorageService) {
+        var _this = this;
         this.jwtHelper = jwtHelper;
+        this.$q = $q;
+        this.$http = $http;
         this.localStorageService = localStorageService;
         this.storageKey = "token_id";
-        this.token = localStorageService.get(this.storageKey);
+        this.validationPromise = $q.defer();
+        var savedToken = localStorageService.get(this.storageKey);
+        if (savedToken) {
+            $resource('/api/auth').get({ token: savedToken }).$promise.then(function (token) {
+                localStorageService.set(_this.storageKey, token.token);
+                _this.token = token.token;
+                _this.validationPromise.resolve(token.token);
+            });
+        }
+        else {
+            this.validationPromise.reject(null);
+        }
     }
-    authService.$inject = ["jwtHelper", "localStorageService"];
+    authService.$inject = ["jwtHelper", "$q", "$http", "$resource", "localStorageService"];
     authService.prototype.tokenIsActive = function () {
         return this.token && !this.jwtHelper.isTokenExpired(this.token);
     };
     authService.prototype.SetToken = function (token) {
         this.token = token;
         this.localStorageService.set(this.storageKey, token);
+        this.$http.defaults.headers.common.Authorization = token;
         return this.GetUserData();
     };
     authService.prototype.GetUserData = function () {
         return this.jwtHelper.decodeToken(this.token);
     };
     authService.prototype.HasAccess = function (role) {
-        console.log(this.GetUserData());
-        console.log(this.tokenIsActive());
-        console.log(this.GetUserData().roles.indexOf(role) !== -1);
-        if (this.tokenIsActive()) {
-            return this.GetUserData().roles.indexOf(role) !== -1;
-        }
-        else {
-            return false;
-        }
+        var _this = this;
+        var accessPromise = this.$q.defer();
+        this.validationPromise.promise.then(function (token) {
+            if (_this.tokenIsActive() && _this.GetUserData().roles.indexOf(role) !== -1) {
+                accessPromise.resolve(true);
+            }
+            else {
+                accessPromise.reject(false);
+            }
+        });
+        return accessPromise.promise;
     };
     return authService;
 })();

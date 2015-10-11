@@ -8,16 +8,7 @@ var usersModule = angular.module('ar-users', ['ui.router', 'ngResource', 'ar-aut
     template: '<div>users :)</div>',
     resolve: {
       restricted: ($q: ng.IQService, authService: application.auth.IAuthService, $state : ng.ui.IStateService) => {
-        var def = $q.defer();
-        if (authService.HasAccess('users')) {
-          console.log('has access');
-          def.resolve(true);
-        } else {
-          console.log('has no access');
-          def.reject(false);
-          $state.go('login');
-        }
-        return def.promise;
+        return authService.HasAccess('users');
       }
     }
   });

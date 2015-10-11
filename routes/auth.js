@@ -16,7 +16,13 @@ router.route('/auth')
   }
 })
 .get(function(req, res, next){
-  res.send(token);
+  console.log("jwt.verify(req.query.token, config.seacret)");
+  console.log(jwt.verify(req.query.token, config.seacret));
+  if(jwt.verify(req.query.token, config.seacret)){
+    return  res.json({ token : req.query.token });
+  }else{
+    return  res.json(null);
+  }
 });
 
 module.exports = router;
