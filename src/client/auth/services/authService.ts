@@ -30,6 +30,7 @@ class authService implements application.auth.IAuthService {
     this.token = token;
     this.localStorageService.set(this.storageKey, token);
     this.$http.defaults.headers.common.Authorization = token;
+    this.validationPromise.resolve(token);
     this.validationPromise = this.$q.defer();
     this.validationPromise.resolve(token);
     this.$rootScope.$broadcast("newUserData", this.GetUserData())
@@ -49,6 +50,10 @@ class authService implements application.auth.IAuthService {
   };
   HasAccess(role: string): ng.IPromise<boolean> {
     var accessPromise = this.$q.defer();
+
+    console.log('HasAccess ' + role);
+    console.log(this.validationPromise.promise);
+
     this.validationPromise.promise.then((token : string) =>{
       if(this.tokenIsActive() && this.GetUserData().roles.indexOf(role) !== -1){
         console.log('has role ' + role);
@@ -60,6 +65,8 @@ class authService implements application.auth.IAuthService {
     }).catch(() => {
       console.log('error : has no role ' + role);
       accessPromise.reject(false);
+    }).finally(()=>{
+      console.log('finally ' + role);
     });
     return accessPromise.promise;
   };

@@ -2,7 +2,7 @@ var console = console;
 var app = angular.module('app', ['ui.router', 'toaster', 'ar-auth', 'ar-users'])
     .run(["$http", "$rootScope", "$state", function ($http, $rootScope, $state) {
     $rootScope.$on('$stateChangeError', function () {
-        $state.go('home.404');
+        $state.go('home.401');
     });
 }])
     .config(["$stateProvider", "$urlRouterProvider", "$httpProvider", function ($stateProvider, $urlRouterProvider, $httpProvider) {
@@ -12,6 +12,9 @@ var app = angular.module('app', ['ui.router', 'toaster', 'ar-auth', 'ar-users'])
     });
     $stateProvider.state({
         name: 'home.404', url: '404', template: '<div>404 - cant find this page.</div>'
+    });
+    $stateProvider.state({
+        name: 'home.401', url: '401', template: '<div>401 - unauthenticated.</div>'
     });
     $urlRouterProvider.otherwise('/404');
 }]);
