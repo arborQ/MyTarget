@@ -16,13 +16,13 @@ html(lang='en')
     #wrapper
       #sidebar-wrapper
         div(style="height: 110px; background-image: url(images/accbg.jpg);", ng-if="appCtr.userData")
+          span Hi {{ appCtr.userData.name }}!
+          a(href="#", ng-click="appCtr.logOut($event)") Log out
         ul.sidebar-nav
           li.sidebar-brand
             a(ui-sref='home') Node front-end
           li(ng-repeat="item in appCtr.userData | availableStates:appCtr.listOfMenuPositons:appCtr.listOfAllStates")
             a(ui-sref='{{item}}', ui-sref-active="active") {{item}}
-          li(ng-if="appCtr.userData")
-            a(href="#", ng-click="appCtr.logOut($event)") Log out
       .alert.alert-success.animate(ng-show="$loading") loading ...
       #page-content-wrapper(ui-view="")
     script(src="bower_components/angular/angular.js")
