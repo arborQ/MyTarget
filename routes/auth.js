@@ -4,19 +4,27 @@ var jwt = require('jsonwebtoken');
 var config = require('../config');
 
 var token = jwt.sign({ id : 1, name : 'arbor', roles : [ 'users' ] }, config.seacret, {
-      expiresIn: 1440 // expires in 24 hours
+      expiresIn: '1d'
     });
 
 router.route('/auth')
 .post(function(req, res, next) {
   if(req.body.login === 'arbor' && req.body.password === '123'){
-    res.json({ token : token });
+    setTimeout(function(){
+      res.json({ token : token });
+    }, 1);
   }else{
-    res.json({ success : false });
+    setTimeout(function(){
+      res.json({ success : false });
+    }, 2000);
   }
 })
 .get(function(req, res, next){
-  res.send(token);
+  if(jwt.verify(req.query.token, config.seacret)){
+    return res.json({ token : req.query.token });
+  }else{
+    return  res.json(null);
+  }
 });
 
 module.exports = router;

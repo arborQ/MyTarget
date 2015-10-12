@@ -7,6 +7,8 @@ declare module application.auth{
   interface IAuthService{
       SetToken(token : string) : IUserData;
       GetUserData() : IUserData;
-      HasAccess(role : string) : boolean;
+      HasAccess(role : string) : ng.IPromise<boolean>;
+      IsAnnonymous() : ng.IPromise<boolean>;
+      LogOut(): void;
   }
 }

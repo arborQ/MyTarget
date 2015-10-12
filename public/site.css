@@ -1,3 +1,23 @@
-#page-content-wrapper[ui-view] > .card {
-  max-width: 800px;
+#header {
+  background-color: #d86a6a;
+  height: 64px;
+  color: #FFF;
+}
+#header > a {
+  color: #FFF;
+}
+#header > a.user > img {
+  height: 44px;
+  width: 44px;
+  margin: 10px 5px;
+}
+#header.flex-container {
+  justify-content: flex-end;
+  align-items: center;
+}
+.flex-container {
+  display: flex;
+}
+.flex-container.inline {
+  display: inline-flex;
 }

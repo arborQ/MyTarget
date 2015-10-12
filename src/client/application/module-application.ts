@@ -1,12 +1,23 @@
+var console = console;
 var app = angular.module('app', ['ui.router', 'toaster', 'ar-auth', 'ar-users'])
-.run(($http : angular.IHttpService) =>{
-  $http.defaults.headers.common.Authorization = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ikx1a2FzeiBXb2pjaWsiLCJhZG1pbiI6dHJ1ZX0.nU659L6z8ZrnrR39n0w1e3Yf_1BZiqOUuMcGi1LjH2g';
-
+.run(($http : angular.IHttpService, $rootScope : ng.IScope, $state : ng.ui.IStateService) =>{
+  $rootScope.$on('$stateChangeError', () => {
+    $state.go('home.401');
+  });
 })
 .config(($stateProvider: angular.ui.IStateProvider, $urlRouterProvider : angular.ui.IUrlRouterProvider, $httpProvider : angular.IHttpProvider) => {
   $httpProvider.interceptors.push('errorInterceptorFactory');
   $stateProvider.state({
-    name: 'home', url: '/', template: '<div></div>'
+    name: 'home', url: '/', template: '<div>home :)<div ui-view=""></div></div>'
   });
-  $urlRouterProvider.otherwise('/');
+
+  $stateProvider.state({
+    name: 'home.404', url: '404', template: '<div>404 - cant find this page.</div>'
+  });
+
+  $stateProvider.state({
+    name: 'home.401', url: '401', template: '<div>401 - unauthenticated.</div>'
+  });
+
+  $urlRouterProvider.otherwise('/404');
 })

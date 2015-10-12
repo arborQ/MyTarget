@@ -1,16 +1,23 @@
+var console = console;
 var app = angular.module('app', ['ui.router', 'toaster', 'ar-auth', 'ar-users'])
-    .run(["$http", function ($http) {
-    $http.defaults.headers.common.Authorization = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ikx1a2FzeiBXb2pjaWsiLCJhZG1pbiI6dHJ1ZX0.nU659L6z8ZrnrR39n0w1e3Yf_1BZiqOUuMcGi1LjH2g';
+    .run(["$http", "$rootScope", "$state", function ($http, $rootScope, $state) {
+    $rootScope.$on('$stateChangeError', function () {
+        $state.go('home.401');
+    });
 }])
     .config(["$stateProvider", "$urlRouterProvider", "$httpProvider", function ($stateProvider, $urlRouterProvider, $httpProvider) {
     $httpProvider.interceptors.push('errorInterceptorFactory');
     $stateProvider.state({
-        name: 'home', url: '/', template: '<div></div>'
+        name: 'home', url: '/', template: '<div>home :)<div ui-view=""></div></div>'
     });
-    $urlRouterProvider.otherwise('/');
+    $stateProvider.state({
+        name: 'home.404', url: '404', template: '<div>404 - cant find this page.</div>'
+    });
+    $stateProvider.state({
+        name: 'home.401', url: '401', template: '<div>401 - unauthenticated.</div>'
+    });
+    $urlRouterProvider.otherwise('/404');
 }]);
-
-app.controller('applicationCtr', ["$scope", function ($scope) { }]);
 
 app.factory('errorInterceptorFactory', ["$q", "toaster", function ($q, toaster) {
     return {
@@ -28,12 +35,53 @@ app.factory('errorInterceptorFactory', ["$q", "toaster", function ($q, toaster) 
     };
 }]);
 
-app.service('menuService', ["$rootScope", function ($rootScope) {
-    $rootScope.$menuItems = [];
-    return {
-        add: function (position) {
-            $rootScope.$menuItems.push(position);
-        },
-        load: function () { return $rootScope.$menuItems; }
-    };
-}]);
+var console = console;
+var applicationCtr = (function () {
+    function applicationCtr($scope, $state, authService) {
+        var _this = this;
+        this.listOfAllStates = $state.get();
+        this.listOfMenuPositons = ['login', 'users'];
+        $scope.$on("newUserData", function ($event, userData) {
+            _this.userData = userData;
+        });
+        this.logOut = function ($event) {
+            $event.stopPropagation();
+            $event.preventDefault();
+            authService.LogOut();
+            $state.go('home');
+        };
+    }
+    applicationCtr.$inject = ["$scope", "$state", "authService"];
+    return applicationCtr;
+})();
+app.controller('applicationCtr', applicationCtr);
+
+var console = console;
+var availableStates = (function () {
+    function availableStates() {
+        return function (userData, listOfMenuPositons, listOfAllStates) {
+            var filterResult = [];
+            var authorized = !!userData;
+            listOfMenuPositons.forEach(function (item) {
+                var stateRelated = listOfAllStates.filter(function (state) { return state.name === item; })[0];
+                if (stateRelated) {
+                    var access = stateRelated.data.access;
+                    if (access) {
+                        if (access.onlyAnonymous && !authorized) {
+                            filterResult.push(stateRelated);
+                        }
+                        else if (access.roles && authorized) {
+                            filterResult.push(stateRelated);
+                        }
+                    }
+                    else {
+                        filterResult.push(stateRelated);
+                    }
+                }
+            });
+            return filterResult;
+        };
+    }
+    return availableStates;
+})();
+app.filter('availableStates', availableStates);

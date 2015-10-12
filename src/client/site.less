@@ -1,7 +1,25 @@
-#page-content-wrapper{
-  &[ui-view]{
-    > .card{
-      max-width: 800px;
+@import "variables.less";
+#header{
+  background-color: #d86a6a;
+  height: @header-size;
+  color : @layout-font-color;
+  >a{
+    color : @layout-font-color;
+    &.user{
+      >img{
+        .inside-image(@header-size);
+      }
     }
+  }
+  &.flex-container{
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+
+.flex-container {
+  display: flex;
+  &.inline{
+    display: inline-flex;
   }
 }

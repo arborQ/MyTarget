@@ -1,6 +1,26 @@
+var console = console;
 class authService implements application.auth.IAuthService {
   private token : string;
-  constructor(private jwtHelper: ng.jwt.IJwtHelper) {
+  private validationPromise : ng.IDeferred<string>;
+  storageKey : string = "token_id";
+  constructor(
+    private jwtHelper: ng.jwt.IJwtHelper,
+    private $q : ng.IQService,
+    private $http : ng.IHttpService,
+    $resource : ng.resource.IResourceService,
+    private localStorageService : any,
+    private $rootScope : ng.IScope
+  ) {
+    console.log('create?');
+    this.validationPromise = $q.defer();
+    var savedToken = localStorageService.get(this.storageKey);
+    if(savedToken){
+      $resource('/api/auth').get({ token : savedToken }).$promise.then((token : any) => {
+        this.SetToken(token.token);
+      });
+    }else{
+      this.validationPromise.reject(null);
+    }
   }
 
   private tokenIsActive() : boolean{
@@ -8,18 +28,57 @@ class authService implements application.auth.IAuthService {
   }
   SetToken(token: string): application.auth.IUserData {
     this.token = token;
+    this.localStorageService.set(this.storageKey, token);
+    this.$http.defaults.headers.common.Authorization = token;
+    this.validationPromise.resolve(token);
+    this.validationPromise = this.$q.defer();
+    this.validationPromise.resolve(token);
+    this.$rootScope.$broadcast("newUserData", this.GetUserData())
     return this.GetUserData();
   }
   GetUserData() : application.auth.IUserData{
     return this.jwtHelper.decodeToken<application.auth.IUserData>(this.token);
   }
-  HasAccess(role: string): boolean {
-     if(this.tokenIsActive()){
-      return this.GetUserData().roles.filter((r) => r === role).length > 0;
-    }else{
-      return false;
-    }
+  IsAnnonymous() : ng.IPromise<boolean> {
+    var accessPromise = this.$q.defer();
+    this.validationPromise.promise.then((token : string) =>{
+      accessPromise.reject(false);
+    }).catch(()=>{
+      accessPromise.resolve(true);
+    });
+    return accessPromise.promise;
+  };
+  HasAccess(role: string): ng.IPromise<boolean> {
+    var accessPromise = this.$q.defer();
+
+    console.log('HasAccess ' + role);
+    console.log(this.validationPromise.promise);
+
+    this.validationPromise.promise.then((token : string) =>{
+      if(this.tokenIsActive() && this.GetUserData().roles.indexOf(role) !== -1){
+        console.log('has role ' + role);
+        accessPromise.resolve(true);
+      }else{
+        console.log('has no role ' + role);
+        accessPromise.reject(false);
+      }
+    }).catch(() => {
+      console.log('error : has no role ' + role);
+      accessPromise.reject(false);
+    }).finally(()=>{
+      console.log('finally ' + role);
+    });
+    return accessPromise.promise;
+  };
+
+  LogOut(){
+    this.token = null;
+    this.localStorageService.set(this.storageKey, null);
+    this.$http.defaults.headers.common.Authorization = null;
+    this.validationPromise = this.$q.defer();
+    this.validationPromise.reject(null);
+    this.$rootScope.$broadcast("newUserData", null)
   }
 }
 
-auth.service('authService', (jwtHelper: ng.jwt.IJwtHelper) : application.auth.IAuthService => new authService(jwtHelper));
+auth.service('authService', authService);
