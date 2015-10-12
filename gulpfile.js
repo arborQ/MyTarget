@@ -14,7 +14,7 @@ gulp.task('css', function () {
 });
 
 gulp.task('less', ['css'], function () {
-  return gulp.src('./src/client/**/*.less')
+  return gulp.src(['./src/client/**/*.less', '!./src/client/variables.less'])
     .pipe(less())
     .pipe(gulp.dest('./public'));
 });
@@ -26,9 +26,9 @@ gulp.task('jade', function(){
 });
 
 gulp.task('clientTs',group({
-  'application' : [ './typings/**/*.d.ts', './src/client/application/**/*.ts' ],
-  'auth' : [ './typings/**/*.d.ts', './src/client/auth/**/*.ts' ],
-  'users' : [ './typings/**/*.d.ts', './src/client/users/**/*.ts' ]
+  'application' : [ './typings/**/*.d.ts','./src/client/**/*.d.ts', './src/client/application/**/*.ts' ],
+  'auth' : [ './typings/**/*.d.ts','./src/client/**/*.d.ts', './src/client/auth/**/*.ts' ],
+  'users' : [ './typings/**/*.d.ts','./src/client/**/*.d.ts', './src/client/users/**/*.ts' ]
 }, function(name, files){
   console.log(files);
     return gulp.src(files)

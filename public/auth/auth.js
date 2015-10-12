@@ -8,12 +8,23 @@ var auth = angular.module('ar-auth', ['ui.router', 'ngResource', 'angular-jwt', 
     $stateProvider.state({
         name: 'login',
         url: '/login',
-        data: { access: { onlyAnonymous: true } },
+        data: { access: { onlyAnonymous: true }, icon: 'fa-sign-in' },
         resolve: { restricted: ["authService", function (authService) { return authService.IsAnnonymous(); }] },
         templateUrl: 'auth/views/login.html',
         controller: 'logInCtr',
         controllerAs: 'ctr'
     });
+}]);
+
+auth.factory('authJwtInterceptor', ["$q", "$rootScope", function ($q, $rootScope) {
+    return {
+        'responseError': function (response) {
+            if (response.status === 401) {
+                $rootScope.$broadcast('unauthenticated', response);
+            }
+            return $q.reject(response);
+        }
+    };
 }]);
 
 var logInCtr = (function () {
@@ -38,17 +49,6 @@ var logInCtr = (function () {
     return logInCtr;
 })();
 auth.controller('logInCtr', logInCtr);
-
-auth.factory('authJwtInterceptor', ["$q", "$rootScope", function ($q, $rootScope) {
-    return {
-        'responseError': function (response) {
-            if (response.status === 401) {
-                $rootScope.$broadcast('unauthenticated', response);
-            }
-            return $q.reject(response);
-        }
-    };
-}]);
 
 var console = console;
 var authService = (function () {

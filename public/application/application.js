@@ -19,6 +19,22 @@ var app = angular.module('app', ['ui.router', 'toaster', 'ar-auth', 'ar-users'])
     $urlRouterProvider.otherwise('/404');
 }]);
 
+app.factory('errorInterceptorFactory', ["$q", "toaster", function ($q, toaster) {
+    return {
+        'responseError': function (rejection) {
+            if (rejection.status !== 401) {
+                toaster.pop({
+                    type: 'error',
+                    title: 'Ajax',
+                    body: 'ajax error occured',
+                    showCloseButton: true
+                });
+            }
+            return $q.reject(rejection);
+        }
+    };
+}]);
+
 var console = console;
 var applicationCtr = (function () {
     function applicationCtr($scope, $state, authService) {
@@ -40,22 +56,6 @@ var applicationCtr = (function () {
 })();
 app.controller('applicationCtr', applicationCtr);
 
-app.factory('errorInterceptorFactory', ["$q", "toaster", function ($q, toaster) {
-    return {
-        'responseError': function (rejection) {
-            if (rejection.status !== 401) {
-                toaster.pop({
-                    type: 'error',
-                    title: 'Ajax',
-                    body: 'ajax error occured',
-                    showCloseButton: true
-                });
-            }
-            return $q.reject(rejection);
-        }
-    };
-}]);
-
 var console = console;
 var availableStates = (function () {
     function availableStates() {
@@ -68,14 +68,14 @@ var availableStates = (function () {
                     var access = stateRelated.data.access;
                     if (access) {
                         if (access.onlyAnonymous && !authorized) {
-                            filterResult.push(item);
+                            filterResult.push(stateRelated);
                         }
                         else if (access.roles && authorized) {
-                            filterResult.push(item);
+                            filterResult.push(stateRelated);
                         }
                     }
                     else {
-                        filterResult.push(item);
+                        filterResult.push(stateRelated);
                     }
                 }
             });

@@ -5,7 +5,7 @@ var usersModule = angular.module('ar-users', ['ui.router', 'ngResource', 'ar-aut
     name: 'users',
     url: '/users',
     template: '<div>users :)</div>',
-    data : { access : { roles : [ 'users' ] } },
+    data : { access : { roles : [ 'users' ] }, icon : 'fa-users' },
     resolve: {
       restricted: ($q: ng.IQService, authService: application.auth.IAuthService, $state : ng.ui.IStateService) => {
         return authService.HasAccess('users');

@@ -1,8 +1,8 @@
 var console = console;
 class availableStates{
   constructor(){
-    return (userData : application.auth.IUserData, listOfMenuPositons : Array<string>, listOfAllStates : Array<ng.ui.IState>) : Array<string> =>{
-      var filterResult = <Array<string>>[];
+    return (userData : application.auth.IUserData, listOfMenuPositons : Array<string>, listOfAllStates : Array<ng.ui.IState>) : Array<ng.ui.IState> =>{
+      var filterResult = <Array<ng.ui.IState>>[];
       var authorized = !!userData;
       listOfMenuPositons.forEach(( item : string )=>{
         var [ stateRelated ] = listOfAllStates.filter((state : ng.ui.IState) => state.name === item);
@@ -10,12 +10,12 @@ class availableStates{
           var { access } = stateRelated.data;
           if(access){
             if(access.onlyAnonymous && !authorized){
-              filterResult.push(item);
+              filterResult.push(stateRelated);
             }else if(access.roles && authorized){
-              filterResult.push(item);
+              filterResult.push(stateRelated);
             }
           }else{
-            filterResult.push(item);
+            filterResult.push(stateRelated);
           }
         }
       });

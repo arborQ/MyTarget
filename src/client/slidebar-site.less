@@ -1,22 +1,10 @@
+@import "variables.less";
 #wrapper {
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
-
-    &.toggled {
-        padding-left: 250px;
-
-        #sidebar-wrapper {
-            width: 250px;
-        }
-
-        #page-content-wrapper {
-            position: absolute;
-            margin-right: -250px;
-        }
-    }
 }
 
 #sidebar-wrapper {
@@ -27,11 +15,16 @@
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background: #000;
+    background: #cf4646;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+    >a.logo{
+      >img{
+        .inside-image(@header-size);
+      }
+    }
 }
 
 #page-content-wrapper {
@@ -41,23 +34,24 @@
 }
 
 .sidebar-nav {
-    // position: absolute;
-    // top: 0;
     width: 250px;
     margin: 0;
     padding: 0;
     list-style: none;
     li {
-        text-indent: 20px;
+        text-indent: 10px;
         line-height: 40px;
 
         a {
             display: block;
             text-decoration: none;
-            color: #999999;
+            color: @layout-font-color;
+            >i{
+              margin-right: 10px;
+            }
             &:hover, &.active{
               text-decoration: none;
-              color: #fff;
+              color: #FFF;
               background: rgba(255,255,255,0.2);
             }
 
@@ -72,7 +66,7 @@
         font-size: 18px;
         line-height: 60px;
         a {
-            color: #999999;
+            border-bottom: 0.1em solid #FFF;
             &:hover {
                 color: #fff;
                 background: none;
@@ -85,16 +79,6 @@
 @media(min-width:768px) {
     #wrapper {
         padding-left: 250px;
-        &.toggled {
-            padding-left: 0;
-            #sidebar-wrapper {
-                width: 0;
-            }
-            #page-content-wrapper {
-                position: relative;
-                margin-right: 0;
-            }
-        }
     }
 
     #sidebar-wrapper {
