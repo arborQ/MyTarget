@@ -18,7 +18,9 @@ var auth = angular.module('ar-auth', ['ui.router', 'ngResource', 'angular-jwt', 
 
 var logInCtr = (function () {
     function logInCtr($resource, $rootScope, authService, $state) {
-        this.save = function (model, form) {
+        this.save = function (model, form, $event) {
+            $event.preventDefault();
+            $event.stopPropagation();
             if (form.$valid) {
                 $rootScope.$loading = true;
                 $resource('/api/auth').save(model)
