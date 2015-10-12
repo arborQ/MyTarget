@@ -15,6 +15,7 @@ html(lang='en')
     toaster-container
     #wrapper
       #sidebar-wrapper
+        div(style="height: 110px; background-image: url(images/accbg.jpg);", ng-if="appCtr.userData")
         ul.sidebar-nav
           li.sidebar-brand
             a(ui-sref='home') Node front-end
