@@ -7,7 +7,7 @@ nconf.env()
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express', production : nconf.get("NODE_ENV") });
+  res.render('index', { title: 'My target', production : nconf.get("NODE_ENV") === 'production' });
 });
 
 module.exports = router;

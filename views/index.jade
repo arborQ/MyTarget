@@ -6,13 +6,18 @@ html(lang='en')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     meta(name='description', content='')
     meta(name='author', content='')
-    title= production
-    link(rel='stylesheet', href='bower_components/bootstrap/dist/css/bootstrap.css')
-    link(rel='stylesheet', href='bower_components/AngularJS-Toaster/toaster.css')
-    link(rel='stylesheet', href='bower_components/font-awesome/css/font-awesome.css')
-    
-    link(href='slidebar-site.css', rel='stylesheet')
-    link(href='site.css', rel='stylesheet')
+    title= title
+    if production
+      link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css')
+      link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.15/toaster.min.css')
+      link(rel='stylesheet', href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css')
+      link(rel='stylesheet', href='site.min.css')
+    else
+      link(rel='stylesheet', href='bower_components/bootstrap/dist/css/bootstrap.css')
+      link(rel='stylesheet', href='bower_components/AngularJS-Toaster/toaster.css')
+      link(rel='stylesheet', href='bower_components/font-awesome/css/font-awesome.css')
+      link(href='slidebar-site.css', rel='stylesheet')
+      link(href='site.css', rel='stylesheet')
     link(rel="shortcut icon", type="image/ico", href="/images/favicon.ico")
   body(ng-app="app", ng-controller="applicationCtr as appCtr", ng-cloak="")
     toaster-container
