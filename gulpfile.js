@@ -46,6 +46,7 @@ gulp.task('clientTs', function(){
     jsPackage('application');
     jsPackage('auth');
     jsPackage('users');
+    jsPackage('settings');
   }
 });
 

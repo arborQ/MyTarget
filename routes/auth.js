@@ -3,7 +3,7 @@ var router = express.Router();
 var jwt = require('jsonwebtoken');
 var config = require('../config');
 
-var token = jwt.sign({ id : 1, name : 'arbor', roles : [ 'users' ] }, config.seacret, {
+var token = jwt.sign({ id : 1, login : 'arbor', firstName : 'Lukasz', lastName : 'Wojcik', roles : [ 'users', 'settings', 'settings.account' ] }, config.seacret, {
       expiresIn: '1d'
     });
 

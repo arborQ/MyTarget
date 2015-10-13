@@ -52,22 +52,14 @@ class authService implements application.auth.IAuthService {
   HasAccess(role: string): ng.IPromise<boolean> {
     var accessPromise = this.$q.defer();
 
-    console.log('HasAccess ' + role);
-    console.log(this.validationPromise.promise);
-
     this.validationPromise.promise.then((token : string) =>{
       if(this.tokenIsActive() && this.GetUserData().roles.indexOf(role) !== -1){
-        console.log('has role ' + role);
         accessPromise.resolve(true);
       }else{
-        console.log('has no role ' + role);
         accessPromise.reject(false);
       }
     }).catch(() => {
-      console.log('error : has no role ' + role);
       accessPromise.reject(false);
-    }).finally(()=>{
-      console.log('finally ' + role);
     });
     return accessPromise.promise;
   };

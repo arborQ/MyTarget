@@ -1,5 +1,5 @@
 var console = console;
-var app = angular.module('app', ['ui.router', 'toaster', 'ar-auth', 'ar-users'])
+var app = angular.module('app', ['ui.router', 'toaster', 'ar-auth', 'ar-users', 'ar-settings'])
 .run(($http : angular.IHttpService, $rootScope : ng.IScope, $state : ng.ui.IStateService) =>{
   $rootScope.$on('$stateChangeError', () => {
     $state.go('home.401');

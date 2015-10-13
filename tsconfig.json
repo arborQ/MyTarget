@@ -25,6 +25,7 @@
         "src/client/auth/module-auth.ts",
         "src/client/auth/services/authService.ts",
         "src/client/auth/typings/authService.d.ts",
+        "src/client/settings/module-settings.ts",
         "src/client/users/module-users.ts",
         "typings/angular-jwt/angular-jwt.d.ts",
         "typings/angular-material/angular-material.d.ts",
