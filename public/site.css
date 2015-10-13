@@ -9,7 +9,7 @@
 #header > a.user > img {
   height: 44px;
   width: 44px;
-  margin: 10px 5px;
+  margin: 10px 10px;
 }
 #header.flex-container {
   justify-content: flex-end;

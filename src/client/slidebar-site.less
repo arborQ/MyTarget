@@ -1,6 +1,5 @@
 @import "variables.less";
 #wrapper {
-    padding-left: 0;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -10,19 +9,23 @@
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
-    left: 250px;
-    width: 0;
+    left: 0;
+    width: @header-size;
     height: 100%;
-    margin-left: -250px;
     overflow-y: auto;
     background: #cf4646;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
-    >a.logo{
-      >img{
-        .inside-image(@header-size);
+    a{
+      &.logo{
+        >img{
+          .inside-image(@header-size);
+        }
+      }
+      >span{
+        display: none;
       }
     }
 }
@@ -31,10 +34,10 @@
     width: 100%;
     position: absolute;
     padding: 15px;
+    padding-left: @header-size + 15px;
 }
 
 .sidebar-nav {
-    width: 250px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -83,6 +86,13 @@
 
     #sidebar-wrapper {
         width: 250px;
+
+
+        a{
+          >span{
+            display: inline;
+          }
+        }
     }
 
     #page-content-wrapper {

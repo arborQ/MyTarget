@@ -1,5 +1,4 @@
 #wrapper {
-  padding-left: 0;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -8,10 +7,9 @@
 #sidebar-wrapper {
   z-index: 1000;
   position: fixed;
-  left: 250px;
-  width: 0;
+  left: 0;
+  width: 64px;
   height: 100%;
-  margin-left: -250px;
   overflow-y: auto;
   background: #cf4646;
   -webkit-transition: all 0.5s ease;
@@ -19,18 +17,21 @@
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
-#sidebar-wrapper > a.logo > img {
+#sidebar-wrapper a.logo > img {
   height: 44px;
   width: 44px;
-  margin: 10px 5px;
+  margin: 10px 10px;
+}
+#sidebar-wrapper a > span {
+  display: none;
 }
 #page-content-wrapper {
   width: 100%;
   position: absolute;
   padding: 15px;
+  padding-left: 79px;
 }
 .sidebar-nav {
-  width: 250px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -75,6 +76,9 @@
   }
   #sidebar-wrapper {
     width: 250px;
+  }
+  #sidebar-wrapper a > span {
+    display: inline;
   }
   #page-content-wrapper {
     padding: 20px;
