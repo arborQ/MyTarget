@@ -11,12 +11,13 @@ class authService implements application.auth.IAuthService {
     private localStorageService : any,
     private $rootScope : ng.IScope
   ) {
-    console.log('create?');
     this.validationPromise = $q.defer();
     var savedToken = localStorageService.get(this.storageKey);
     if(savedToken){
       $resource('/api/auth').get({ token : savedToken }).$promise.then((token : any) => {
         this.SetToken(token.token);
+      }).catch(()=>{
+        this.validationPromise.reject(null);
       });
     }else{
       this.validationPromise.reject(null);
