@@ -27,14 +27,23 @@ gulp.task('jade', function(){
 });
 var jsPackage = function(name){
   console.log('./src/client/'+ name +'/**/*.ts');
-  return gulp.src([ './typings/**/*.d.ts','./src/client/**/*.d.ts', './src/client/'+ name +'/**/*.ts' ])
+  return gulp.src([ './typings/**/*.d.ts', '!./src/**/structure/*.ts', './src/client/**/*.d.ts', './src/client/'+ name +'/**/*.ts' ])
     .pipe(ts({ mode : 'amd' }))
     .pipe(ngAnnotate())
     .pipe(concat(name + ".js"))
     .pipe(gulp.dest("./public/" + name));
 };
 
-gulp.task('clientTs', function(){
+gulp.task('structureTs', function(){
+  return gulp.src(['./typings/**/*.d.ts', './src/**/structure/*.ts' ])
+  .pipe(ts({ mode : 'amd' }))
+  .pipe(concat('structure.js'))
+  .pipe(gulpIf(argv.production || argv.p, minJs()))
+  .pipe(gulp.dest("./public"));
+
+});
+
+gulp.task('clientTs', ['structureTs'], function(){
   if(argv.production || argv.p){
     return gulp.src([ './typings/**/*.d.ts','./src/client/**/*.d.ts', './src/client/**/*.ts' ])
       .pipe(ts({ mode : 'amd' }))

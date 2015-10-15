@@ -4,7 +4,9 @@ var usersModule = angular.module('ar-users', ['ui.router', 'ngResource', 'ar-aut
   $stateProvider.state({
     name: 'users',
     url: '/users',
-    template: '<div>users :)</div>',
+    template: '<div><pre> {{ctr.model | json}} </pre></div>',
+    controllerAs : 'ctr',
+    controller : 'userList',
     data : { access : { roles : [ 'users' ] }, icon : 'fa-users' },
     resolve: {
       restricted: ($q: ng.IQService, authService: application.auth.IAuthService, $state : ng.ui.IStateService) => {
