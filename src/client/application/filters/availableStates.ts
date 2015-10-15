@@ -1,4 +1,3 @@
-var console = console;
 class availableStates{
   constructor(){
     return (userData : application.auth.IUserData, listOfMenuPositons : Array<string>, listOfAllStates : Array<ng.ui.IState>) : Array<ng.ui.IState> =>{

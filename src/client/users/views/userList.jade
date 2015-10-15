@@ -1,9 +1,11 @@
-div.list-group
-  span.list-group-item
-    span(style="flex-grow : 11;") Name
-    span(style="flex-grow : 11;") Email
-    span.fa.fa-power-off
-  a.list-group-item(ui-sref=".edit({ id : user.id })", ng-repeat="user in ctr.model") 
-    span(style="flex-grow : 11;") {{ user.name }}
-    span(style="flex-grow : 11;") {{ user.email }}
-    span.fa(ng-class="{ true : 'fa-toggle-on', false : 'fa-toggle-off' }[user.isActive]")
+.list-edit
+  div.list-group.list-container
+    span.list-group-item
+      span(style="flex-grow : 11;") Name {{ 'users.edit' | isState}}
+      span(style="flex-grow : 11;") Email
+      span.fa.fa-power-off
+    a.list-group-item(ui-sref=".edit({ id : user.id })", ng-repeat="user in ctr.model") 
+      span(style="flex-grow : 11;") {{ user.name }}
+      span(style="flex-grow : 11;") {{ user.email }}
+      span.fa(ng-class="{ true : 'fa-toggle-on', false : 'fa-toggle-off' }[user.isActive]")
+  div.edit-container(ui-view="", ng-if="'users.edit' | isState")

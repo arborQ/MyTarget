@@ -1,5 +1,5 @@
 var console = console;
-var usersModule = angular.module('ar-users', ['ui.router', 'ngResource', 'ar-auth'])
+var usersModule = angular.module('ar-users', ['ui.router', 'ngResource' ,'ngMessages', 'ar-auth'])
   .config(($stateProvider: angular.ui.IStateProvider) => {
   $stateProvider.state({
     name: 'users',
@@ -11,6 +11,23 @@ var usersModule = angular.module('ar-users', ['ui.router', 'ngResource', 'ar-aut
     resolve: {
       restricted: ($q: ng.IQService, authService: application.auth.IAuthService, $state : ng.ui.IStateService) => {
         return authService.HasAccess('users');
+      }
+    }
+  });
+
+  $stateProvider.state({
+    name: 'users.edit',
+    url: '/edit/{id:[0-9]*}',
+    templateUrl: 'users/views/userEdit.html',
+    controllerAs : 'ctr',
+    controller : ('userEdit'),
+    data : { access : { roles : [ 'users' ] } },
+    resolve: {
+      restricted: ($q: ng.IQService, authService: application.auth.IAuthService, $state : ng.ui.IStateService) => {
+        return authService.HasAccess('users');
+      },
+      params : ($stateParams : ng.ui.IStateParamsService) : application.params.IByIdentity =>{
+        return { id : $stateParams["id"] };
       }
     }
   });
