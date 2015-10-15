@@ -2,12 +2,10 @@ class userList extends listBaseViewModel<users.IUser>{
   constructor($scope: ng.IScope, $resource: ng.resource.IResourceService) {
     super.loadData = (): Array<users.IUser> => {
       super.beforeLoadData();
-      var fakeData = <Array<users.IUser>>[
-        { id: 1, name: 'arbor1', email: 'arbor@o2.pl', isActive: true, created: new Date() },
-        { id: 2, name: 'arbor2', email: 'arbor@o2.pl', isActive: true, created: new Date() },
-        { id: 3, name: 'arbor3', email: 'arbor@o2.pl', isActive: true, created: new Date() },
-        { id: 4, name: 'arbor4', email: 'arbor@o2.pl', isActive: true, created: new Date() },
-      ];
+      var fakeData = <Array<users.IUser>>[];
+      for(var i =0;i< 20;i++){
+        fakeData.push({ id: i, name: 'arbor' + i, email: `arbor${i}@o2.pl`, isActive: i % 3 === 0, created: new Date() })
+      }
       super.onSuccessLoadData(fakeData);
       return fakeData;
     };

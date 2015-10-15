@@ -4,7 +4,7 @@ var usersModule = angular.module('ar-users', ['ui.router', 'ngResource', 'ar-aut
   $stateProvider.state({
     name: 'users',
     url: '/users',
-    template: '<div><pre> {{ctr.model | json}} </pre></div>',
+    templateUrl: 'users/views/userList.html',
     controllerAs : 'ctr',
     controller : 'userList',
     data : { access : { roles : [ 'users' ] }, icon : 'fa-users' },

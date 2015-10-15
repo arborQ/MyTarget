@@ -4,6 +4,6 @@ declare module users{
     name : string;
     email : string;
     created : Date;
-    isActive : boolean;      
+    isActive : boolean;
   }
 }
