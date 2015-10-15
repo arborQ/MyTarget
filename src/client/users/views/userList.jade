@@ -2,8 +2,8 @@ div.list-group
   span.list-group-item
     span(style="flex-grow : 11;") Name
     span(style="flex-grow : 11;") Email
-    span.fa.fa-power-off(style="flex-grow : 1;")
+    span.fa.fa-power-off
   a.list-group-item(ui-sref=".edit({ id : user.id })", ng-repeat="user in ctr.model") 
     span(style="flex-grow : 11;") {{ user.name }}
     span(style="flex-grow : 11;") {{ user.email }}
-    span.fa(style="flex-grow : 1;", ng-class="{ true : 'fa-toggle-on', false : 'fa-toggle-off' }[user.isActive]")
+    span.fa(ng-class="{ true : 'fa-toggle-on', false : 'fa-toggle-off' }[user.isActive]")
