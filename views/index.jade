@@ -29,7 +29,7 @@ html(lang='en')
           li(ng-repeat="item in appCtr.userData | availableStates:appCtr.listOfMenuPositons:appCtr.listOfAllStates")
             a(ui-sref='{{item.name}}', ui-sref-active="active") 
               i.fa(ng-class='item.data.icon') 
-              span {{item.name}}
+              span {{ 'menu.' + (item.name | normalize) | i18n}}
       #header.container-fluid.flex-container(ng-if="!!appCtr.userData")
         a.user(ui-sref="settings.account")
           img(src="images/user.png")

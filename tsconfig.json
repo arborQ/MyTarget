@@ -19,6 +19,7 @@
         "src/client/application/factories/errorInterceptorFactory.ts",
         "src/client/application/filters/allowSave.ts",
         "src/client/application/filters/availableStates.ts",
+        "src/client/application/filters/normalize.ts",
         "src/client/application/module-application.ts",
         "src/client/application/structure/baseViewModel.ts",
         "src/client/application/structure/editBaseViewModel.ts",

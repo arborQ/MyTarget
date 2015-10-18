@@ -49,6 +49,16 @@ class authService implements application.auth.IAuthService {
     });
     return accessPromise.promise;
   };
+  IsAuthorized() : ng.IPromise<boolean>{
+    var accessPromise = this.$q.defer();
+    this.validationPromise.promise.then((token : string) =>{
+      accessPromise.resolve(true);
+    }).catch(()=>{
+      accessPromise.reject(false);
+    });
+    return accessPromise.promise;
+  }
+
   HasAccess(role: string): ng.IPromise<boolean> {
     var accessPromise = this.$q.defer();
 

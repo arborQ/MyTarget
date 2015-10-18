@@ -7,7 +7,7 @@ class applicationCtr {
   public logOut : ($event : ng.IAngularEvent) => void;
   constructor($scope: ng.IScope, $state: ng.ui.IStateService, authService : application.auth.IAuthService) {
     this.listOfAllStates = $state.get();
-    this.listOfMenuPositons = ['login', 'users'];
+    this.listOfMenuPositons = ['login', 'users' ,'settings.summary'];
     $scope.$on("newUserData", ($event : ng.IAngularEvent, userData: application.auth.IUserData) => {
       this.userData = userData;
     });

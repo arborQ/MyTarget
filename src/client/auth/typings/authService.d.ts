@@ -9,6 +9,7 @@ declare module application.auth{
       GetUserData() : IUserData;
       HasAccess(role : string) : ng.IPromise<boolean>;
       IsAnnonymous() : ng.IPromise<boolean>;
+      IsAuthorized() : ng.IPromise<boolean>;
       LogOut(): void;
   }
 }
