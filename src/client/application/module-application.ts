@@ -25,7 +25,7 @@ var app = angular.module('app', ['ui.router', 'ngLocalize' , 'ngLocalize.Config'
     basePath: 'resources',
     defaultLocale: 'en-US',
     sharedDictionary: 'common',
-    fileExtension: '.lang.json',
+    fileExtension: '.lang',
     persistSelection: true,
     cookieName: 'COOKIE_LOCALE_LANG',
     observableAttrs: new RegExp('^data-(?!ng-|i18n)'),

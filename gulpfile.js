@@ -11,6 +11,7 @@ minJs = require('gulp-uglify')
 minCss = require('gulp-minify-css')
 flat = require('gulp-flatten'),
 jsonMin = require('gulp-jsonmin'),
+rename = require('gulp-rename'),
 argv = require('yargs').argv;
 
 
@@ -31,6 +32,7 @@ gulp.task('jade', function(){
 var languagePackage = function(code){
   return gulp.src(['./src/client/**/'+ code +'/*.lang.json' ])
   .pipe(flat())
+  .pipe(rename({ extname : '' }))
   .pipe(jsonMin())
   .pipe(gulp.dest('./public/resources/' + code));
 }

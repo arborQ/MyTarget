@@ -38,7 +38,6 @@
         "src/client/users/typings/users.d.ts",
         "typings/angular-jwt/angular-jwt.d.ts",
         "typings/angular-material/angular-material.d.ts",
-        "typings/angular-translate/angular-translate.d.ts",
         "typings/angular-ui-router/angular-ui-router.d.ts",
         "typings/angularjs/angular-resource.d.ts",
         "typings/angularjs/angular.d.ts",
