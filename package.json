@@ -45,7 +45,9 @@
     "path": "^0.12.7",
     "sequelize": "^3.12.0",
     "serve-favicon": "^2.3.0",
-    "yargs": "^3.27.0"
+    "yargs": "^3.27.0",
+    "gulp-flatten": "^0.2.0",
+    "gulp-jsonmin": "^1.0.2"
   },
   "devDependencies": {
     "bower": "^1.5.3",

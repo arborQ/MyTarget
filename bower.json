@@ -26,7 +26,8 @@
     "holderjs": "~2.8.2",
     "angular-resource": "~1.4.7",
     "AngularJS-Toaster": "angularjs-toaster#~0.4.15",
-    "angular-jwt": "~0.0.9"
+    "angular-jwt": "~0.0.9",
+    "angular-localization": "~1.2.1"
   },
   "devDependencies": {
     "font-awesome": "~4.4.0",

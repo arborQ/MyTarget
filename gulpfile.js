@@ -9,6 +9,8 @@ jade = require('gulp-jade')
 gulpIf = require('gulp-if')
 minJs = require('gulp-uglify')
 minCss = require('gulp-minify-css')
+flat = require('gulp-flatten'),
+jsonMin = require('gulp-jsonmin'),
 argv = require('yargs').argv;
 
 
@@ -25,6 +27,13 @@ gulp.task('jade', function(){
     .pipe(jade())
     .pipe(gulp.dest('./public'));
 });
+
+var languagePackage = function(code){
+  return gulp.src(['./src/client/**/'+ code +'/*.lang.json' ])
+  .pipe(flat())
+  .pipe(jsonMin())
+  .pipe(gulp.dest('./public/resources/' + code));
+}
 var jsPackage = function(name){
   console.log('./src/client/'+ name +'/**/*.ts');
   return gulp.src([ './typings/**/*.d.ts', '!./src/**/structure/*.ts', './src/client/**/*.d.ts', './src/client/'+ name +'/**/*.ts' ])
@@ -58,8 +67,11 @@ gulp.task('clientTs', ['structureTs'], function(){
     jsPackage('settings');
   }
 });
-
-gulp.task('default', [ 'less' , 'clientTs', 'jade' ], function () {});
+gulp.task('locale', function(){
+  languagePackage('en-US');
+  languagePackage('pl-PL');
+});
+gulp.task('default', [ 'less' , 'clientTs', 'jade', 'locale' ], function () {});
 gulp.task('watch', [ 'default'], function() {
-  return gulp.watch('./src/client/**/*.{ts,jade,less}', [ 'default' ]);
+  return gulp.watch('./src/client/**/*.{ts,jade,less,json}', [ 'default' ]);
 });

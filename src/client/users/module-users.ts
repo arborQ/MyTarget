@@ -1,6 +1,7 @@
 var console = console;
 var usersModule = angular.module('ar-users', ['ui.router', 'ngResource' ,'ngMessages', 'ar-auth'])
   .config(($stateProvider: angular.ui.IStateProvider) => {
+
   $stateProvider.state({
     name: 'users',
     url: '/users',
@@ -11,7 +12,9 @@ var usersModule = angular.module('ar-users', ['ui.router', 'ngResource' ,'ngMess
     resolve: {
       restricted: ($q: ng.IQService, authService: application.auth.IAuthService, $state : ng.ui.IStateService) => {
         return authService.HasAccess('users');
-      }
+      } ,
+      commonRes  : (locale : any) => locale.ready('common'),
+      usersRes  : (locale : any) => locale.ready('users')
     }
   });
 
@@ -26,6 +29,8 @@ var usersModule = angular.module('ar-users', ['ui.router', 'ngResource' ,'ngMess
       restricted: ($q: ng.IQService, authService: application.auth.IAuthService, $state : ng.ui.IStateService) => {
         return authService.HasAccess('users');
       },
+      usersRes  : (locale : any) => locale.ready('users'),
+      validationRes : (locale : any) => locale.ready('validation') ,
       params : ($stateParams : ng.ui.IStateParamsService) : application.params.IByIdentity =>{
         return { id : $stateParams["id"] };
       }

@@ -1,5 +1,5 @@
 var console = console;
-var app = angular.module('app', ['ui.router', 'toaster', 'ar-auth', 'ar-users', 'ar-settings'])
+var app = angular.module('app', ['ui.router', 'ngLocalize' , 'ngLocalize.Config', 'toaster', 'ar-auth', 'ar-users', 'ar-settings'])
 .run(($http : angular.IHttpService, $rootScope : ng.IScope, $state : ng.ui.IStateService) =>{
   $rootScope.$on('$stateChangeError', () => {
     $state.go('home.401');
@@ -7,6 +7,7 @@ var app = angular.module('app', ['ui.router', 'toaster', 'ar-auth', 'ar-users', 
 })
 .config(($stateProvider: angular.ui.IStateProvider, $urlRouterProvider : angular.ui.IUrlRouterProvider, $httpProvider : angular.IHttpProvider) => {
   $httpProvider.interceptors.push('errorInterceptorFactory');
+
   $stateProvider.state({
     name: 'home', url: '/', template: '<div>home :)<div ui-view=""></div></div>'
   });
@@ -20,4 +21,13 @@ var app = angular.module('app', ['ui.router', 'toaster', 'ar-auth', 'ar-users', 
   });
 
   $urlRouterProvider.otherwise('/404');
-})
+}).value('localeConf', {
+    basePath: 'resources',
+    defaultLocale: 'en-US',
+    sharedDictionary: 'common',
+    fileExtension: '.lang.json',
+    persistSelection: true,
+    cookieName: 'COOKIE_LOCALE_LANG',
+    observableAttrs: new RegExp('^data-(?!ng-|i18n)'),
+    delimiter: '::'
+});
