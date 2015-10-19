@@ -12,7 +12,7 @@ var auth = angular.module('ar-auth', ['ui.router', 'ngResource', 'angular-jwt', 
   $stateProvider.state({
     name: 'login',
     url: '/login',
-    data : { access : { onlyAnonymous : true }, icon : 'fa-sign-in' },
+    data : { access : <application.auth.IAuthAccess>{ onlyAnonymous : true }, icon : 'fa-sign-in' },
     resolve : { restricted : (authService : application.auth.IAuthService) => { return authService.IsAnnonymous();} },
     templateUrl: 'auth/views/login.html',
     controller: 'logInCtr',

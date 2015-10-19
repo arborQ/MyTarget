@@ -33,9 +33,9 @@ html(lang='en')
       #header.container-fluid.flex-container(ng-if="!!appCtr.userData")
         a.user(ui-sref="settings.account")
           img(src="images/user.png")
-        a(ui-sref="home", ng-click="appCtr.logOut($event)") wyloguj
+        a(ui-sref="home", ng-click="appCtr.logOut($event)")  {{ 'common.logout' | i18n }}
       #header.container-fluid.flex-container(ng-if="!appCtr.userData")
-        a(ui-sref="login") zaloguj
+        a(ui-sref="login") {{ 'common.login' | i18n }}
       .alert.alert-success.animate(ng-show="$loading") loading ...
       #page-content-wrapper(ui-view="")
     script(src="structure.js")

@@ -12,4 +12,17 @@ declare module application.auth{
       IsAuthorized() : ng.IPromise<boolean>;
       LogOut(): void;
   }
+  interface IAuthAccess{
+    onlyAnonymous? : boolean;
+    onlyAuthorized? : boolean;
+    roles? : Array<string>;
+  }
+
+  interface IAuthData{
+    access? : IAuthAccess;
+    icon? : string;
+  }
+  interface IAuthState extends ng.ui.IState{
+    data : IAuthData;
+  }
 }

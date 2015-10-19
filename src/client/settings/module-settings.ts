@@ -19,7 +19,7 @@ var moduleSettings = angular.module('ar-settings', ['ui.router', 'ngResource', '
 
   $stateProvider.state('settings.summary', {
     url: '/summary',
-    data: { icon: 'fa-users' },
+    data: { icon: 'fa-cogs', access : <application.auth.IAuthAccess>{ onlyAuthorized : true } },
     resolve: {
       restricted: (authService: application.auth.IAuthService) => authService.IsAuthorized()
     },
